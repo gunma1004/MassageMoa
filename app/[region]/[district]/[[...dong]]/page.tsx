@@ -9,6 +9,7 @@ interface PageProps {
   }>;
 }
 
+// 🔍 실제 도메인(https://gunmasarang.shop) 및 동적 SEO 설정
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { region, district, dong } = resolvedParams;
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${locationKeyword} 출장마사지 추천 - 100% 후불제 건마사랑`,
       description: `${locationKeyword} 어디든 25분 내 실시간 신속 방문! 검증된 24시 제휴업체 정보와 코스별 요금을 확인하세요.`,
-      url: `https://your-domain.com/${region}/${encodeURIComponent(districtName)}/${dongName ? encodeURIComponent(dongName) : ""}`,
+      url: `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}/${dongName ? encodeURIComponent(dongName) : ""}`,
     },
   };
 }
@@ -79,7 +80,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
       name: `🌟 ${fullTitle} 20대프리미엄홈케어`,
       desc: "전문 힐러들의 맞춤형 VIP 피로회복 특화 프로그램 진행 중",
       phone: "0507-1280-3222",
-      price: "60,000원부터~",
+      price: "60,000원부터~", // 👈 60,000원 적용
       image: "/shop4.jpg"
     },
     {
@@ -277,11 +278,10 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       </main>
 
-      {/* 🔥 하단 푸터 (제휴문의 0507-1280-3344 버튼 추가 완료!) */}
+      {/* 푸터 영역 (제휴문의 0507-1280-3344 버튼 적용) */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-4">
           
-          {/* 제휴문의 작은 버튼 */}
           <div>
             <a 
               href="tel:0507-1280-3344" 
