@@ -9,7 +9,6 @@ interface PageProps {
   }>;
 }
 
-// 5개 제휴업체 상세 데이터
 const shopData: Record<string, {
   name: string;
   phone: string;
@@ -105,7 +104,7 @@ export default function ShopDetailPage({ params }: PageProps) {
   return (
     <div className="bg-[#050505] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black pb-24">
       
-      {/* 상단 네온 헤더 */}
+      {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#050505]/85 backdrop-blur-xl border-b border-amber-500/20 px-4 py-3.5 shadow-[0_4px_20px_rgba(245,158,11,0.1)]">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3 group">
@@ -130,7 +129,7 @@ export default function ShopDetailPage({ params }: PageProps) {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-8">
         
-        {/* 업체 상단 대표 비주얼 카드 */}
+        {/* 대표 비주얼 카드 */}
         <section className="bg-[#121214] border border-amber-500/30 rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           <div className="relative h-64 md:h-80 w-full overflow-hidden">
             <img 
@@ -157,7 +156,6 @@ export default function ShopDetailPage({ params }: PageProps) {
               {shop.desc}
             </p>
 
-            {/* 업체 장점 태그 */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
               {shop.features.map((feat, idx) => (
                 <div key={idx} className="bg-black/60 border border-amber-500/20 px-3 py-2 rounded-xl text-center text-[11px] font-bold text-amber-300">
@@ -168,7 +166,7 @@ export default function ShopDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 상세 코스 및 요금 안내 */}
+        {/* 상세 코스 및 요금 */}
         <section className="bg-[#0d0d0f] border border-amber-500/20 p-6 md:p-8 rounded-3xl space-y-6">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">COURSE & PRICE</span>
@@ -197,7 +195,7 @@ export default function ShopDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 예약 전 유의사항 */}
+        {/* 안내사항 */}
         <section className="bg-black/80 p-5 rounded-2xl border border-white/10">
           <h3 className="text-amber-400 font-bold text-sm mb-2 flex items-center gap-1.5">
             <span>📌</span> 이용 예약 안내
@@ -210,7 +208,7 @@ export default function ShopDetailPage({ params }: PageProps) {
 
       </main>
 
-      {/* 하단 고정 전화 / 문자 빠른 예약 바 */}
+      {/* 하단 전화/문자 바 */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#08080a]/95 backdrop-blur-xl border-t border-amber-500/30 p-3 md:p-4 shadow-[0_-10px_25px_rgba(0,0,0,0.8)]">
         <div className="max-w-4xl mx-auto grid grid-cols-2 gap-3">
           <a 

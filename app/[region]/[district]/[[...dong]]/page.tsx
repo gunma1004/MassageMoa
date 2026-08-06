@@ -9,7 +9,6 @@ interface PageProps {
   }>;
 }
 
-// 🔍 실제 도메인(https://gunmasarang.shop) 및 동적 SEO 설정
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { region, district, dong } = resolvedParams;
@@ -80,7 +79,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
       name: `🌟 ${fullTitle} 20대프리미엄홈케어`,
       desc: "전문 힐러들의 맞춤형 VIP 피로회복 특화 프로그램 진행 중",
       phone: "0507-1280-3222",
-      price: "60,000원부터~", // 👈 60,000원 적용
+      price: "60,000원부터~",
       image: "/shop4.jpg"
     },
     {
@@ -224,7 +223,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
                 <span className="text-[11px] text-gray-500">실이용 고객</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                "{fullTitle} 지역이라 문의드렸는데 예상보다 빠르게 25분 만에 오셨어요. 피로가 쌓였을 때 이용하기 딱 좋습니다."
+                &quot;{fullTitle} 지역이라 문의드렸는데 예상보다 빠르게 25분 만에 오셨어요. 피로가 쌓였을 때 이용하기 딱 좋습니다.&quot;
               </p>
             </div>
             <div className="bg-[#0f0f12] p-5 rounded-2xl border border-white/5 space-y-2">
@@ -233,7 +232,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
                 <span className="text-[11px] text-gray-500">단골 고객</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                "선입금 전혀 없이 도착해서 눈으로 직접 확인 후 결제하는 시스템이라 정말 안심하고 부릅니다."
+                &quot;선입금 전혀 없이 도착해서 눈으로 직접 확인 후 결제하는 시스템이라 정말 안심하고 부릅니다.&quot;
               </p>
             </div>
           </div>
@@ -278,7 +277,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       </main>
 
-      {/* 푸터 영역 (제휴문의 0507-1280-3344 버튼 적용) */}
+      {/* 푸터 영역 */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-4">
           

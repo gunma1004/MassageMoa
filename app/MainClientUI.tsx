@@ -203,7 +203,7 @@ export default function MainClientUI() {
       {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#050505]/85 backdrop-blur-xl border-b border-amber-500/20 px-4 py-3.5 shadow-[0_4px_20px_rgba(245,158,11,0.1)]">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <a href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <img 
               src="/logo.png" 
               alt="건마사랑 로고" 
@@ -215,7 +215,7 @@ export default function MainClientUI() {
               </span>
               <span className="text-[10px] text-gray-400 tracking-tighter">SEOUL · GYEONGGI · INCHEON</span>
             </div>
-          </a>
+          </Link>
           
           <div className="flex items-center gap-2">
             <span className="relative flex h-3 w-3">
@@ -413,7 +413,7 @@ export default function MainClientUI() {
                 <span className="text-[11px] text-gray-500">서울 직장인</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                "시간 약속 칼같이 맞춰오시고 친절하셨어요. 뭉친 어깨가 싹 풀려서 주말마다 자주 찾게 되네요!"
+                &quot;시간 약속 칼같이 맞춰오시고 친절하셨어요. 뭉친 어깨가 싹 풀려서 주말마다 자주 찾게 되네요!&quot;
               </p>
             </div>
             <div className="bg-[#0f0f12] p-5 rounded-2xl border border-white/5 space-y-2">
@@ -422,7 +422,7 @@ export default function MainClientUI() {
                 <span className="text-[11px] text-gray-500">경기 이용자</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                "선입금 없는 후불제라 정말 부담없이 이용할 수 있어서 만족합니다. 매니저분 마인드도 훌륭했어요."
+                &quot;선입금 없는 후불제라 정말 부담없이 이용할 수 있어서 만족합니다. 매니저분 마인드도 훌륭했어요.&quot;
               </p>
             </div>
           </div>
@@ -448,11 +448,10 @@ export default function MainClientUI() {
 
       </main>
 
-      {/* 🔥 하단 푸터 (제휴문의 0507-1280-3344 버튼 추가 완료!) */}
+      {/* 푸터 영역 */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-4">
           
-          {/* 제휴문의 작은 버튼 */}
           <div>
             <a 
               href="tel:0507-1280-3344" 
