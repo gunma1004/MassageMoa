@@ -9,7 +9,6 @@ interface PageProps {
   }>;
 }
 
-// 🔍 검색엔진(구글/네이버) 동적 SEO 메타데이터 자동 생성
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { region, district, dong } = resolvedParams;
@@ -18,7 +17,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const districtName = decodeURIComponent(district);
   const regionName = region === "seoul" ? "서울시" : region === "incheon" ? "인천시" : "경기도";
 
-  // 검색 키워드 조합 (예: 서울시 강남구 역삼동 출장마사지)
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
 
   return {
@@ -279,8 +277,20 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       </main>
 
+      {/* 🔥 하단 푸터 (제휴문의 0507-1280-3344 버튼 추가 완료!) */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
-        <div className="max-w-4xl mx-auto px-4 space-y-2">
+        <div className="max-w-4xl mx-auto px-4 space-y-4">
+          
+          {/* 제휴문의 작은 버튼 */}
+          <div>
+            <a 
+              href="tel:0507-1280-3344" 
+              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
+            >
+              <span>🤝</span> 제휴문의 (0507-1280-3344)
+            </a>
+          </div>
+
           <p className="text-gray-400 font-bold">건마사랑은 건전하고 안전한 제휴 마사지 정보 플랫폼입니다.</p>
           <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
         </div>

@@ -257,7 +257,7 @@ export default function MainClientUI() {
           </div>
         </section>
 
-        {/* 🔥 메인 추천 제휴업체 5개 박스 카드리스트 (클릭 시 /shop/1~5 상세페이지 이동 링크 연결!) */}
+        {/* 메인 추천 제휴업체 5개 박스 카드리스트 */}
         <section className="space-y-6">
           <div className="text-center mb-6">
             <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">BEST RECOMMENDED SHOPS</p>
@@ -270,7 +270,6 @@ export default function MainClientUI() {
             {localShops.map((lShop) => (
               <div key={lShop.id} className="bg-[#121214] border border-amber-500/20 hover:border-amber-500/60 rounded-2xl p-4 flex gap-4 items-center shadow-md transition-all group relative">
                 
-                {/* 🔗 카드 전체 클릭 시 업체 상세페이지로 이동 */}
                 <Link href={`/shop/${lShop.id}`} className="absolute inset-0 z-10" aria-label={`${lShop.name} 상세페이지 보기`} />
 
                 <img 
@@ -287,8 +286,6 @@ export default function MainClientUI() {
                   </p>
                   <div className="mt-2.5 flex items-center justify-between">
                     <span className="text-xs font-black text-amber-400">{lShop.price}</span>
-                    
-                    {/* 전화 버튼은 z-20으로 올려서 바로 전화연결 가능하도록 설정 */}
                     <a 
                       href={`tel:${lShop.phone}`} 
                       className="bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs px-3.5 py-1.5 rounded-xl shadow transition-colors relative z-20"
@@ -451,9 +448,23 @@ export default function MainClientUI() {
 
       </main>
 
+      {/* 🔥 하단 푸터 (제휴문의 0507-1280-3344 버튼 추가 완료!) */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
-        <p className="text-gray-400 font-bold">건마사랑은 건전하고 안전한 제휴 마사지 정보 플랫폼입니다.</p>
-        <p className="text-[11px] text-gray-600 mt-1">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
+        <div className="max-w-4xl mx-auto px-4 space-y-4">
+          
+          {/* 제휴문의 작은 버튼 */}
+          <div>
+            <a 
+              href="tel:0507-1280-3344" 
+              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
+            >
+              <span>🤝</span> 제휴문의 (0507-1280-3344)
+            </a>
+          </div>
+
+          <p className="text-gray-400 font-bold">건마사랑은 건전하고 안전한 제휴 마사지 정보 플랫폼입니다.</p>
+          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
+        </div>
       </footer>
     </div>
   );
