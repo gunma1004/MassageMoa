@@ -187,9 +187,13 @@ export default function MainClientUI() {
     const districtObj = regionData[selectedRegion]?.districts[selectedDistrict];
     const districtName = districtObj ? districtObj.name : selectedDistrict;
     
-    const targetUrl = selectedDong
-      ? `/${selectedRegion}/${encodeURIComponent(districtName)}/${encodeURIComponent(selectedDong)}`
-      : `/${selectedRegion}/${encodeURIComponent(districtName)}`;
+    // 별도의 [dong] 경로 생성 없이 항상 구/시 경로만 이동
+    const baseUrl = `/${selectedRegion}/${encodeURIComponent(districtName)}`;
+    
+    // 선택된 동이 있다면 쿼리 파라미터로 전달 (필요 시 해당 구 페이지에서 텍스트로 표시 및 텍스트 검색에 활용 가능)
+    const targetUrl = selectedDong 
+      ? `${baseUrl}?dong=${encodeURIComponent(selectedDong)}` 
+      : baseUrl;
     
     window.location.href = targetUrl;
   };
@@ -307,7 +311,7 @@ export default function MainClientUI() {
                 📍 내 동네 검색 및 이동하기
               </label>
               <span className="text-[11px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
-                전용 상세 화면 이동
+                지역 전용 화면 이동
               </span>
             </div>
 
@@ -344,14 +348,14 @@ export default function MainClientUI() {
               </div>
 
               <div>
-                <span className="text-[11px] text-gray-400 block mb-1 font-semibold">3단계: 동 선택 (선택사항)</span>
+                <span className="text-[11px] text-gray-400 block mb-1 font-semibold">3단계: 동 선택 (텍스트 필터)</span>
                 <select 
                   value={selectedDong} 
                   onChange={(e) => setSelectedDong(e.target.value)} 
                   disabled={!selectedDistrict}
                   className="bg-black/80 text-sm text-white w-full outline-none cursor-pointer font-medium p-3.5 rounded-xl border border-amber-500/30 disabled:opacity-30 transition-colors shadow-inner"
                 >
-                  <option value="" className="bg-[#1e1e1e] text-gray-400">동 전체 보기 (빠른 검색)</option>
+                  <option value="" className="bg-[#1e1e1e] text-gray-400">동 전체 보기</option>
                   {currentDongs.map((dong, idx) => (
                     <option key={idx} value={dong} className="bg-[#1e1e1e] text-white">
                       {dong}
@@ -364,7 +368,7 @@ export default function MainClientUI() {
                 onClick={handleSearch}
                 className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.4)] mt-3 cursor-pointer transform active:scale-[0.98]"
               >
-                🚀 해당 동네 전용 화면으로 이동하기
+                🚀 해당 지역 화면으로 이동하기
               </button>
             </div>
           </div>

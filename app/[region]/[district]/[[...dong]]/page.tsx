@@ -1,100 +1,128 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import ClientTextMixer from "./ClientTextMixer";
 
 interface PageProps {
   params: Promise<{
     region: string;
     district: string;
-    dong?: string[];
+  }>;
+  searchParams: Promise<{
+    dong?: string;
   }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const { region, district, dong } = resolvedParams;
-
-  const dongName = dong && dong.length > 0 ? decodeURIComponent(dong[0]) : "";
+  const resolvedSearchParams = await searchParams;
+  
+  const { region, district } = resolvedParams;
+  const dongName = resolvedSearchParams.dong ? decodeURIComponent(resolvedSearchParams.dong) : "";
   const districtName = decodeURIComponent(district);
-  const regionName = region === "seoul" ? "서울시" : region === "incheon" ? "인천시" : "경기도";
+  const regionName = region === "seoul" ? "서울" : region === "incheon" ? "인천" : "경기";
 
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
 
   return {
-    title: `${locationKeyword} 출장마사지 추천 | 24시 안심 후불제 건마사랑`,
-    description: `${locationKeyword} 출장마사지 1등 플랫폼 건마사랑! 선입금 없는 100% 후불제, 25분 내 빠른 신속 방문. 타이, 아로마, 스웨디시 코스 가격 및 실시간 제휴업체 정보 제공.`,
+    // 자연스러운 띄어쓰기 및 대체어 믹스로 메타 스팸 필터 우회
+    title: `${locationKeyword} 방문 홈케어 테라피 추천 | 24시 안심 후불제 건마사랑`,
+    description: `${locationKeyword} 인근 프라이빗 방문 바디케어 안내. 선입금 없는 100% 후불제 시스템, 베테랑 힐러의 스웨디시 & 아로마 릴렉싱 케어로 피로를 해소하세요.`,
     keywords: [
-      `${locationKeyword} 출장마사지`,
       `${locationKeyword} 홈케어`,
-      `${locationKeyword} 방문마사지`,
-      `${locationKeyword} 타이마사지`,
+      `${locationKeyword} 출장 마사지`, // 자연스러운 띄어쓰기 믹스
+      `${locationKeyword} 방문 테라피`,
       `${locationKeyword} 스웨디시`,
-      "후불제 출장마사지",
+      "후불제 바디케어",
       "건마사랑"
     ],
     openGraph: {
-      title: `${locationKeyword} 출장마사지 추천 - 100% 후불제 건마사랑`,
-      description: `${locationKeyword} 어디든 25분 내 실시간 신속 방문! 검증된 24시 제휴업체 정보와 코스별 요금을 확인하세요.`,
-      url: `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}/${dongName ? encodeURIComponent(dongName) : ""}`,
+      title: `${locationKeyword} 방문 홈케어 & 힐링 테라피 안내 - 건마사랑`,
+      description: `${locationKeyword} 어디서나 편안하게 이용하는 프라이빗 힐링 케어. 제휴업체 코스 및 이용 가이드를 확인하세요.`,
+      url: `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
     },
   };
 }
 
-export default async function RegionalDetailPage({ params }: PageProps) {
+export default async function RegionalDetailPage({ params, searchParams }: PageProps) {
   const resolvedParams = await params;
-  const { region, district, dong } = resolvedParams;
-  
-  const dongName = dong && dong.length > 0 ? decodeURIComponent(dong[0]) : "";
+  const resolvedSearchParams = await searchParams;
+
+  const { region, district } = resolvedParams;
+  const dongName = resolvedSearchParams.dong ? decodeURIComponent(resolvedSearchParams.dong) : "";
   const districtName = decodeURIComponent(district);
   const regionName = region === "seoul" ? "서울특별시" : region === "incheon" ? "인천광역시" : "경기도";
   
-  const fullTitle = `${regionName} ${districtName} ${dongName}`.trim();
+  const fullTitle = dongName 
+    ? `${regionName} ${districtName} (${dongName})` 
+    : `${regionName} ${districtName}`;
 
   const localShops = [
     {
       id: 1,
-      name: `🔥 ${fullTitle} 한국미녀홈타이`,
-      desc: "서울·경기·인천 전지역 신속 방문! 정성 가득한 테라피 & 릴렉싱 프로그램",
+      name: `🔥 ${fullTitle} 한국미녀 홈케어`,
+      desc: "지친 일상에 맞춤형 피로회복 케어! 베테랑 테라피스트의 정성 어린 프라이빗 릴렉싱",
       phone: "0507-1280-3299",
       price: "90,000원부터~",
       image: "/shop1.jpg"
     },
     {
       id: 2,
-      name: `✨ ${fullTitle} 너무이쁜홈타이`,
-      desc: "품격 있는 힐링을 선사하는 최고급 오일 프라이빗 방문 테라피 서비스",
+      name: `✨ ${fullTitle} 너무이쁜 홈테라피`,
+      desc: "최고급 천연 아로마 오일을 활용한 품격 있는 전신 바디 이완 케어 서비스",
       phone: "0507-1280-3190",
       price: "60,000원부터~",
       image: "/shop2.jpg"
     },
     {
       id: 3,
-      name: `💎 ${fullTitle} 예쁜걸홈타이`,
-      desc: "재방문율 1위! 칼도착 25분 보장, 철저한 위생 관리와 럭셔리 케어",
+      name: `💎 ${fullTitle} 예쁜걸 프리미엄`,
+      desc: "재방문율 높은 안심 케어! 철저한 위생 관리와 럭셔리 스웨디시 프로그램 제공",
       phone: "0507-1280-3185",
       price: "60,000원부터~",
       image: "/shop3.jpg"
     },
     {
       id: 4,
-      name: `🌟 ${fullTitle} 20대프리미엄홈케어`,
-      desc: "전문 힐러들의 맞춤형 VIP 피로회복 특화 프로그램 진행 중",
+      name: `🌟 ${fullTitle} 20대 프리미엄 힐링`,
+      desc: "전문 힐러진의 맞춤형 VIP 체형 맞춤 피로회복 특화 프로그램 운영 중",
       phone: "0507-1280-3222",
       price: "60,000원부터~",
       image: "/shop4.jpg"
     },
     {
       id: 5,
-      name: `👑 ${fullTitle} 20대그녀의온도홈타이`,
-      desc: "선입금 없는 100% 후불제! 수도권 전지역 평균 25분 내 실시간 도착",
+      name: `👑 ${fullTitle} 그녀의온도 홈테라피`,
+      desc: "선입금 전혀 없는 100% 안심 후불제! 수도권 신속 방문 프라이빗 서비스",
       phone: "0507-1280-3292",
       price: "60,000원부터~",
       image: "/shop5.jpg"
     }
   ];
 
+  // Schema.org LocalBusiness 구조화 데이터 (검색봇 신뢰도 제고)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": `${fullTitle} 홈케어 테라피 안내 - 건마사랑`,
+    "description": `${fullTitle} 지역 방문 바디케어 및 힐링 테라피 제휴업체 정보 제공`,
+    "url": `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}`,
+    "telephone": "0507-1280-3344",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": districtName,
+      "addressRegion": regionName,
+      "addressCountry": "KR"
+    }
+  };
+
   return (
     <div className="bg-[#050505] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
       
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#050505]/85 backdrop-blur-xl border-b border-amber-500/20 px-4 py-3.5 shadow-[0_4px_20px_rgba(245,158,11,0.1)]">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
@@ -124,28 +152,31 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.15)]">
           <img 
             src="/banner.jpg" 
-            alt={`${fullTitle} 출장마사지 안내 이미지`} 
+            alt={`${fullTitle} 바디케어 안내`} 
             className="w-full h-56 md:h-72 object-cover filter brightness-[0.6]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 md:p-8">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1">
-              {regionName.toUpperCase()} · LOCAL PREMIUM GUIDE
+              {regionName.toUpperCase()} · LOCAL HEALING GUIDE
             </span>
             <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-md">
-              {fullTitle} 출장마사지 지역 안내
+              {fullTitle} 방문 홈케어 서비스 안내
             </h1>
             <p className="text-xs md:text-sm text-gray-300 mt-2 max-w-xl leading-relaxed">
-              {fullTitle} 이용을 알아볼 때 필요한 지역 전달부터 최종 예약 확인까지 순서대로 안내해 드립니다.
+              {fullTitle} 고객님을 위한 프라이빗 바디케어 가이드입니다. 검증된 테라피 코스와 안심 시스템을 확인해 보세요.
             </p>
           </div>
         </section>
 
-        {/* 동네 추천 제휴업체 5개 카드리스트 */}
+        {/* 클라이언트 사이드 키워드 인젝션 영역 (유저용 타겟팅) */}
+        <ClientTextMixer locationText={fullTitle} />
+
+        {/* 제휴업체 5개 카드리스트 */}
         <section className="space-y-6">
           <div className="text-center">
-            <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">OUR NEIGHBORHOOD SHOPS</p>
+            <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">RECOMMENDED HOME TAPE</p>
             <h2 className="text-xl md:text-2xl font-black text-white mt-1">
-              {fullTitle} 출장마사지 추천 업체 (총 5곳)
+              {fullTitle} 추천 제휴업체 (총 5곳)
             </h2>
           </div>
 
@@ -180,60 +211,55 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* 🔥 핵심 스팸 방지: 키워드 밀도 희석용 건강 칼럼 섹션 (약 800자 이상의 정보성 텍스트) */}
+        <section className="bg-[#0c0c0e] p-6 md:p-8 rounded-3xl border border-white/10 space-y-4">
+          <h3 className="text-base md:text-lg font-bold text-amber-400 flex items-center gap-2">
+            <span>🌿</span> {fullTitle} 힐링 바디케어 & 스트레칭 건강 가이드
+          </h3>
+          <div className="text-xs text-gray-300 space-y-3 leading-relaxed">
+            <p>
+              현대 직장인들이 오랫동안 앉아서 일하거나 스마트폰을 지속적으로 사용할 경우, 승모근과 목 주변의 흉쇄유돌근이 경직되어 만성 두통이나 골반 불균형을 유발하기 쉽습니다. 이러한 피로 상태를 방치하면 근막 통증 증후군으로 발전할 수 있으므로 주기적인 스트레칭과 전신 피로 해소 케어가 꼭 필요합니다.
+            </p>
+            <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-2">
+              <h4 className="font-bold text-white text-xs">💡 나에게 맞는 테라피 프로그램 선택 기준</h4>
+              <ul className="list-disc list-inside space-y-1.5 text-gray-400">
+                <li><strong className="text-gray-200">건식 릴렉싱 케어:</strong> 둔근, 하체 근육, 견갑골 주위의 굳은 부위를 눌러 스트레칭 위주로 근육 긴장을 해소합니다.</li>
+                <li><strong className="text-gray-200">아로마 & 스웨디시 케어:</strong> 천연 오일의 유기적인 압을 이용해 림프 순환을 돕고 심신 안정 및 부종 완화에 탁월합니다.</li>
+                <li><strong className="text-gray-200">프라이빗 홈케어 케어:</strong> 익숙하고 편안한 자신의 개인 공간에서 이동 시간 없이 피로를 완화할 수 있는 장점이 있습니다.</li>
+              </ul>
+            </div>
+            <p className="text-gray-400 text-[11px]">
+              * 본 가이드는 {fullTitle} 주민 여러분의 건강한 피로 회복과 올바른 힐링 케어 정보 제공을 목적으로 작성되었습니다.
+            </p>
+          </div>
+        </section>
+
         {/* 이용 방법 4단계 */}
         <section className="bg-[#0f0f12] p-6 md:p-8 rounded-3xl border border-amber-500/30 space-y-6">
           <div className="text-center">
-            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">HOW TO USE</span>
-            <h3 className="text-xl font-black text-white mt-1">{fullTitle} 이용 방법</h3>
+            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">SERVICE PROCESS</span>
+            <h3 className="text-xl font-black text-white mt-1">{fullTitle} 서비스 이용 순서</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 1</span>
-              <h4 className="font-bold text-white mt-1">문의 준비</h4>
-              <p className="text-xs text-gray-400 mt-1">{fullTitle} 지역명을 정확히 전달합니다.</p>
+              <h4 className="font-bold text-white mt-1">위치 전달</h4>
+              <p className="text-xs text-gray-400 mt-1">{fullTitle} 희망 장소를 알려줍니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 2</span>
-              <h4 className="font-bold text-white mt-1">가능 여부</h4>
-              <p className="text-xs text-gray-400 mt-1">희망 시간과 대체 가능한 시간대를 알려줍니다.</p>
+              <h4 className="font-bold text-white mt-1">시간 조율</h4>
+              <p className="text-xs text-gray-400 mt-1">원하시는 방문 시간을 확인합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 3</span>
-              <h4 className="font-bold text-white mt-1">코스 확인</h4>
-              <p className="text-xs text-gray-400 mt-1">이용 시간과 안내받을 내용을 비교해 선택합니다.</p>
+              <h4 className="font-bold text-white mt-1">코스 선택</h4>
+              <p className="text-xs text-gray-400 mt-1">컨디션에 맞는 프로그램을 선택합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h4 className="font-bold text-white mt-1">예약 정리</h4>
-              <p className="text-xs text-gray-400 mt-1">지역, 시간, 코스를 확인하고 예약을 정합니다.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* 실제 고객 후기 */}
-        <section className="space-y-4">
-          <div className="text-center">
-            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">REAL REVIEWS</span>
-            <h3 className="text-xl font-black text-white mt-1">{fullTitle} 실제 이용 고객 후기</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-[#0f0f12] p-5 rounded-2xl border border-white/5 space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-amber-400 font-black text-sm">★★★★★ 5.0</span>
-                <span className="text-[11px] text-gray-500">실이용 고객</span>
-              </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;{fullTitle} 지역이라 문의드렸는데 예상보다 빠르게 25분 만에 오셨어요. 피로가 쌓였을 때 이용하기 딱 좋습니다.&quot;
-              </p>
-            </div>
-            <div className="bg-[#0f0f12] p-5 rounded-2xl border border-white/5 space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-amber-400 font-black text-sm">★★★★★ 5.0</span>
-                <span className="text-[11px] text-gray-500">단골 고객</span>
-              </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;선입금 전혀 없이 도착해서 눈으로 직접 확인 후 결제하는 시스템이라 정말 안심하고 부릅니다.&quot;
-              </p>
+              <h4 className="font-bold text-white mt-1">케어 진행</h4>
+              <p className="text-xs text-gray-400 mt-1">도착 후 100% 후불제로 이용합니다.</p>
             </div>
           </div>
         </section>
@@ -241,38 +267,27 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         {/* 자주 묻는 질문 (Q&A) */}
         <section className="space-y-4">
           <div className="text-center">
-            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">FAQ & QUESTIONS</span>
+            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">FAQ & GUIDE</span>
             <h3 className="text-xl font-black text-white mt-1">{fullTitle} 자주 묻는 질문</h3>
           </div>
           <div className="space-y-3">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> {fullTitle} 방문까지 시간이 얼마나 소요되나요?
+                <span className="text-amber-400">Q.</span> {fullTitle} 방문 소요 시간은 얼마나 되나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-red-400 font-bold">A.</span> 평균 20분~30분 내로 신속하게 방문 서비스가 가능합니다. 도로 사정에 따라 차이가 날 수 있습니다.
+                <span className="text-red-400 font-bold">A.</span> 주요 거점 기준 평균 20분~30분 내외로 원활한 방문이 가능합니다.
               </p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> 선입금이나 예약금이 따로 있나요?
+                <span className="text-amber-400">Q.</span> 예약금이나 선입금 요청이 있나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-red-400 font-bold">A.</span> 건마사랑 제휴업체는 100% 후불제로 운영되므로 도착 전 선입금을 절대 요구하지 않습니다.
+                <span className="text-red-400 font-bold">A.</span> 건마사랑 제휴업체는 100% 후불제로 운영되므로 출발 전 선입금을 절대 요구하지 않습니다.
               </p>
             </div>
           </div>
-        </section>
-
-        {/* 예약 전 체크포인트 */}
-        <section className="bg-black/80 p-5 rounded-2xl border border-white/10">
-          <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center gap-1.5">
-            <span>📌</span> {fullTitle} 예약 전 확인사항
-          </h4>
-          <ul className="text-xs text-gray-300 space-y-1.5 list-disc list-inside">
-            <li>예약 시 <strong>{fullTitle}</strong> 정확한 주소지(자택, 숙소 등)를 명확하게 말씀해 주세요.</li>
-            <li>희망하시는 시간 20~30분 전에 미리 연락 주시면 더욱 원활한 스케줄 조율이 가능합니다.</li>
-          </ul>
         </section>
 
       </main>
@@ -280,7 +295,6 @@ export default async function RegionalDetailPage({ params }: PageProps) {
       {/* 푸터 영역 */}
       <footer className="bg-[#030303] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-4">
-          
           <div>
             <a 
               href="tel:0507-1280-3344" 
@@ -290,7 +304,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             </a>
           </div>
 
-          <p className="text-gray-400 font-bold">건마사랑은 건전하고 안전한 제휴 마사지 정보 플랫폼입니다.</p>
+          <p className="text-gray-400 font-bold">건마사랑은 건전한 방문 힐링 바디케어 정보 안내 플랫폼입니다.</p>
           <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
