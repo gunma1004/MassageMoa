@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavigationHeader from "./NavigationHeader"; // 👈 추가
+import NavigationHeader from "./NavigationHeader";
 
 export const metadata: Metadata = {
-  title: "건마사랑 | 서울·경기·인천 24시 출장마사지 추천 1등 플랫폼",
-  description: "서울, 경기, 인천 전지역 25분 내 신속 방문! 선입금 없는 100% 후불제 안심 예약.",
+  title: "건마사랑 | 서울·경기·인천 24시 방문 홈케어 & 힐링 테라피 안내",
+  description: "서울, 경기, 인천 전지역 25분 내 신속 방문! 선입금 없는 100% 안심 후불제 예약.",
+  openGraph: {
+    title: "건마사랑 | 서울·경기·인천 24시 방문 홈케어 추천",
+    description: "선입금 없는 100% 후불 안심 케어! 수도권 전지역 25분 내 빠른 방문 바디케어 정보를 확인하세요.",
+    url: "https://gunmasarang.store",
+  },
+
+  // 🌟 네이버 & 구글 소유권 확인 태그
   verification: {
-    google: "8lf7yFKYW3BrCgd1VOzLZP967Z_uCQE3N1KzAuQD358",
+    google: "GknTTTuCaz345Abse2oF1-4INGW46yME8VSNJI89Ox0",
     other: {
-      "naver-site-verification": "61c50b0d437b1bc55810319a2ec71b5a0ea65c9d",
+      "naver-site-verification": "db48a22290e6ada8f448de064ff33b14bb7ccb44",
     },
   },
 };
@@ -21,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        {/* 🌟 최상단에 카테고리 헤더 배치 */}
         <NavigationHeader />
         {children}
       </body>
