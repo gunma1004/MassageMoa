@@ -6,7 +6,7 @@ export default function ClientTextMixer({ locationText }: { locationText: string
   const [keywordText, setKeywordText] = useState(`${locationText} 전문 홈케어 바디 서비스`);
 
   useEffect(() => {
-    // 유저가 페이지에 로드되면 자연스러운 키워드 문구로 자바스크립트 렌더링 (크롤러 초기 스팸 감지 우회)
+    // 유저가 접속 시 자연스러운 타겟 키워드로 렌더링 (SEO 스팸 감지 우회)
     setKeywordText(`${locationText} 프라이빗 출장 마사지 & 홈케어 안내`);
   }, [locationText]);
 

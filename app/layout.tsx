@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NavigationHeader from "./NavigationHeader"; // 👈 추가
 
 export const metadata: Metadata = {
   title: "건마사랑 | 서울·경기·인천 24시 출장마사지 추천 1등 플랫폼",
-  // 80자 이내로 다듬은 페이지 설명 (공백 포함 76자)
-  description: "서울, 경기, 인천 전지역 25분 내 신속 방문! 선입금 없는 100% 후불제 안심 예약. 타이, 아로마, 스웨디시 프리미엄 힐링 서비스 제공.",
-  
-  openGraph: {
-    title: "건마사랑 | 서울·경기·인천 24시 출장마사지 추천",
-    description: "선입금 없는 100% 후불 안심 케어! 수도권 전지역 25분 내 빠른 방문 마사지 정보를 확인하세요.",
-  },
-
+  description: "서울, 경기, 인천 전지역 25분 내 신속 방문! 선입금 없는 100% 후불제 안심 예약.",
   verification: {
     google: "8lf7yFKYW3BrCgd1VOzLZP967Z_uCQE3N1KzAuQD358",
     other: {
@@ -26,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        {/* 🌟 최상단에 카테고리 헤더 배치 */}
+        <NavigationHeader />
+        {children}
+      </body>
     </html>
   );
 }

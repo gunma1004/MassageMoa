@@ -24,12 +24,11 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
 
   return {
-    // 자연스러운 띄어쓰기 및 대체어 믹스로 메타 스팸 필터 우회
     title: `${locationKeyword} 방문 홈케어 테라피 추천 | 24시 안심 후불제 건마사랑`,
     description: `${locationKeyword} 인근 프라이빗 방문 바디케어 안내. 선입금 없는 100% 후불제 시스템, 베테랑 힐러의 스웨디시 & 아로마 릴렉싱 케어로 피로를 해소하세요.`,
     keywords: [
       `${locationKeyword} 홈케어`,
-      `${locationKeyword} 출장 마사지`, // 자연스러운 띄어쓰기 믹스
+      `${locationKeyword} 출장 마사지`,
       `${locationKeyword} 방문 테라피`,
       `${locationKeyword} 스웨디시`,
       "후불제 바디케어",
@@ -99,7 +98,6 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
     }
   ];
 
-  // Schema.org LocalBusiness 구조화 데이터 (검색봇 신뢰도 제고)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -168,7 +166,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
           </div>
         </section>
 
-        {/* 클라이언트 사이드 키워드 인젝션 영역 (유저용 타겟팅) */}
+        {/* 클라이언트 사이드 키워드 인젝션 영역 */}
         <ClientTextMixer locationText={fullTitle} />
 
         {/* 제휴업체 5개 카드리스트 */}
@@ -211,7 +209,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
           </div>
         </section>
 
-        {/* 🔥 핵심 스팸 방지: 키워드 밀도 희석용 건강 칼럼 섹션 (약 800자 이상의 정보성 텍스트) */}
+        {/* 희석용 건강 칼럼 섹션 */}
         <section className="bg-[#0c0c0e] p-6 md:p-8 rounded-3xl border border-white/10 space-y-4">
           <h3 className="text-base md:text-lg font-bold text-amber-400 flex items-center gap-2">
             <span>🌿</span> {fullTitle} 힐링 바디케어 & 스트레칭 건강 가이드
