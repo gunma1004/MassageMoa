@@ -37,7 +37,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     openGraph: {
       title: `${locationKeyword} 방문 홈케어 & 힐링 테라피 안내 - 건마사랑`,
       description: `${locationKeyword} 어디서나 편안하게 이용하는 프라이빗 힐링 케어. 제휴업체 코스 및 이용 가이드를 확인하세요.`,
-      url: `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
+      url: `https://gunmasarang.store/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
     },
   };
 }
@@ -103,7 +103,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
     "@type": "LocalBusiness",
     "name": `${fullTitle} 홈케어 테라피 안내 - 건마사랑`,
     "description": `${fullTitle} 지역 방문 바디케어 및 힐링 테라피 제휴업체 정보 제공`,
-    "url": `https://gunmasarang.shop/${region}/${encodeURIComponent(districtName)}`,
+    "url": `https://gunmasarang.store/${region}/${encodeURIComponent(districtName)}`,
     "telephone": "0507-1280-3344",
     "address": {
       "@type": "PostalAddress",

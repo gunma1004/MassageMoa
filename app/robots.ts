@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  // 🌐 실제 적용할 도메인 주소
-  const baseUrl = 'https://gunmasarang.shop';
+  // 🌐 변경할 새 도메인 주소로 수정
+  const baseUrl = 'https://gunmasarang.store';
 
   return {
     rules: {
