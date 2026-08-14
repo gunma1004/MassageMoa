@@ -21,17 +21,133 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const districtName = decodeURIComponent(district);
   const regionName = region === "seoul" ? "서울" : region === "incheon" ? "인천" : "경기";
 
-  // 검색 최적화를 위한 지역 키워드 조합
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
+  const simpleLocation = dongName ? `${districtName} ${dongName}` : districtName;
+
+  // -------------------------------------------------------------
+  // 🎯 50가지 패턴 생성을 위한 알고리즘 연산
+  // -------------------------------------------------------------
+  const charSum = (locationKeyword + dongName + districtName).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const variantIndex = charSum % 50; // 0 ~ 49 고유 패턴 연산
+
+  // 50가지 타이틀 패턴
+  const titleVariants = [
+    /* 0 */ `${locationKeyword} 출장마사지 추천 | 24시 빠른방문 힐링 케어 - 건마사랑`,
+    /* 1 */ `[건마사랑] ${locationKeyword} 출장마사지 안내 · 100% 안심 후불제`,
+    /* 2 */ `${simpleLocation} 출장마사지 24시 전문 안내 | ${regionName} 프라이빗 홈케어`,
+    /* 3 */ `${locationKeyword} 출장마사지 제휴업체 정보 및 후불제 예약 가이드`,
+    /* 4 */ `${locationKeyword} 출장마사지 빠른 방문 24시 | 스웨디시 & 아로마 전문`,
+    /* 5 */ `건마사랑 | ${simpleLocation} 출장마사지 안심 후불제 힐링 테라피`,
+    /* 6 */ `${locationKeyword} 출장마사지 신속 도착 · 선입금 없는 정직한 바디케어`,
+    /* 7 */ `${regionName} ${simpleLocation} 출장마사지 24시 예약 및 제휴 코스 안내`,
+    /* 8 */ `${locationKeyword} 출장마사지 강추 | 프라이빗 1:1 맞춤형 피로회복`,
+    /* 9 */ `[24시 방문] ${locationKeyword} 출장마사지 추천 업체 모음 · 건마사랑`,
+    /* 10 */ `${simpleLocation} 출장마사지 릴렉싱 케어 | 후불제 홈테라피 가이드`,
+    /* 11 */ `${locationKeyword} 출장마사지 25분 내 빠르게 달려갑니다 - 건마사랑`,
+    /* 12 */ `프라이빗 힐링 ${locationKeyword} 출장마사지 | 타이·아로마·스웨디시`,
+    /* 13 */ `${locationKeyword} 출장마사지 24시 엄선된 제휴업체 및 요금 안내`,
+    /* 14 */ `${simpleLocation} 출장마사지 잘하는 곳 | 100% 후불 안심 테라피`,
+    /* 15 */ `${locationKeyword} 출장마사지 신속한 예약 서비스 | 건마사랑 공식`,
+    /* 16 */ `[건마사랑 24시] ${locationKeyword} 출장마사지 베테랑 힐러 케어`,
+    /* 17 */ `${locationKeyword} 출장마사지 가이드 | 스웨디시·아로마·홈케어`,
+    /* 18 */ `${simpleLocation} 출장마사지 24시간 언제나 빠르게 출동합니다`,
+    /* 19 */ `${locationKeyword} 출장마사지 선입금 X | 안심 후불 바디케어`,
+    /* 20 */ `${regionName} ${simpleLocation} 출장마사지 릴렉스 전문 제휴 가이드`,
+    /* 21 */ `${locationKeyword} 출장마사지 만족도 높고 신속한 24시 테라피`,
+    /* 22 */ `[공식] ${locationKeyword} 출장마사지 제휴업체 코스 및 가격 안내`,
+    /* 23 */ `${simpleLocation} 출장마사지 25분 내 빠르게 만나는 힐링 타임`,
+    /* 24 */ `${locationKeyword} 출장마사지 프라이빗 케어 | 후불제 홈테라피`,
+    /* 25 */ `건마사랑 추천 ${locationKeyword} 출장마사지 24시 안심 서비스`,
+    /* 26 */ `${locationKeyword} 출장마사지 타이 & 아로마 전문 힐링 케어`,
+    /* 27 */ `${simpleLocation} 출장마사지 예약 가이드 · 100% 후불제 시스템`,
+    /* 28 */ `${locationKeyword} 출장마사지 친절 방문 | 전신 피로 완화 케어`,
+    /* 29 */ `[24시 신속] ${simpleLocation} 출장마사지 힐링 테라피 정보`,
+    /* 30 */ `${locationKeyword} 출장마사지 프리미엄 제휴 안내 - 건마사랑`,
+    /* 31 */ `${locationKeyword} 출장마사지 내 주변 빠른 방문 케어 서비스`,
+    /* 32 */ `${simpleLocation} 출장마사지 24시간 후불 예약 및 이용 방법`,
+    /* 33 */ `${locationKeyword} 출장마사지 정직하고 안전한 1:1 방문 케어`,
+    /* 34 */ `[건마사랑] ${simpleLocation} 출장마사지 추천 매장 종합 안내`,
+    /* 35 */ `${locationKeyword} 출장마사지 힐링 코스 & 가격 상세 안내`,
+    /* 36 */ `${locationKeyword} 출장마사지 선입금 절대 없는 24시 방문 서비스`,
+    /* 37 */ `${simpleLocation} 출장마사지 베테랑 테라피스트 빠른 방문`,
+    /* 38 */ `${locationKeyword} 출장마사지 나만을 위한 프라이빗 힐링 공간`,
+    /* 39 */ `[24시 출장] ${locationKeyword} 출장마사지 안심 후불제 안내`,
+    /* 40 */ `${locationKeyword} 출장마사지 오일 & 건식 케어 제휴업체 정보`,
+    /* 41 */ `${simpleLocation} 출장마사지 건전 방문 힐링 서비스 가이드`,
+    /* 42 */ `${locationKeyword} 출장마사지 피로가 싹 풀리는 1:1 맞춤 테라피`,
+    /* 43 */ `건마사랑 | ${locationKeyword} 출장마사지 25분 내 빠른 케어`,
+    /* 44 */ `${simpleLocation} 출장마사지 엄선된 24시 제휴 매장 목록`,
+    /* 45 */ `${locationKeyword} 출장마사지 후불제 24시 스웨디시 전문 안내`,
+    /* 46 */ `${locationKeyword} 출장마사지 편안한 집에서 받는 릴렉싱 케어`,
+    /* 47 */ `[안심후불] ${simpleLocation} 출장마사지 24시간 방문 테라피`,
+    /* 48 */ `${locationKeyword} 출장마사지 최고급 아로마 오일 테라피 코스`,
+    /* 49 */ `${locationKeyword} 출장마사지 신속 예약 및 이용 후기 안내 - 건마사랑`
+  ];
+
+  // 50가지 디스크립션 패턴
+  const descriptionVariants = [
+    /* 0 */ `${locationKeyword} 출장마사지 25분 내 빠른 방문! 선입금 요청 절대 없는 100% 안심 후불제. 타이, 아로마, 스웨디시 제휴업체 코스 안내.`,
+    /* 1 */ `프라이빗한 피로 회복! ${locationKeyword} 인근 24시 출장마사지 및 홈케어 가이드. 베테랑 테라피스트의 맞춤 힐링 케어를 확인하세요.`,
+    /* 2 */ `${locationKeyword} 전지역 신속 출장마사지 예약. 부담 없는 후불제 시스템과 정직한 코스 정보 제공, 건마사랑 공식 안내.`,
+    /* 3 */ `${simpleLocation} 고객님을 위한 24시 안심 출장마사지 & 바디케어. 스웨디시, 아로마 릴렉싱 정보 및 빠른 전화 연결 서비스.`,
+    /* 4 */ `${locationKeyword} 출장마사지 찾고 계신가요? 100% 후불제 운영으로 안심하고 즐기는 프라이빗 홈케어 전문 가이드입니다.`,
+    /* 5 */ `지친 일상의 피로를 날려버릴 ${locationKeyword} 24시 출장마사지 안내. 빠른 신속 방문과 베테랑 힐러진의 품격 있는 서비스를 경험하세요.`,
+    /* 6 */ `${locationKeyword} 어디서나 25분 내 도착! 선입금 없는 안심 후불제 출장마사지와 힐링 바디케어 코스를 엄선하여 소개합니다.`,
+    /* 7 */ `${simpleLocation} 출장마사지 전문 제휴업체 모음. 24시간 언제든 편안한 개인 공간에서 이용하는 프리미엄 스웨디시 케어.`,
+    /* 8 */ `${locationKeyword} 인근 믿을 수 있는 후불제 출장마사지 정보. 타이, 아로마, 전신 오일 테라피까지 한눈에 비교 확인하세요.`,
+    /* 9 */ `건마사랑에서 보장하는 ${locationKeyword} 출장마사지 안심 서비스! 선입금 요구 없이 도착 후 결제하는 100% 안전 시스템.`,
+    /* 10 */ `${locationKeyword} 24시 방문 홈케어 및 출장마사지 종합 안내. 맞춤형 힐링 케어로 묵은 피로를 시원하게 해소해 드립니다.`,
+    /* 11 */ `${simpleLocation} 출장마사지 코스 및 이용 가격 안내. 24시간 친절 상담과 빠른 방문으로 고객 만족도를 높여드립니다.`,
+    /* 12 */ `${locationKeyword} 출장마사지 릴렉싱 프로그램. 프라이빗한 맞춤 케어로 심신의 편안함과 활력을 찾아드립니다.`,
+    /* 13 */ `${locationKeyword} 24시 출장마사지 예약 가이드. 선입금 사기 걱정 없는 100% 후불제 제휴업체 정보만 선별하여 전달합니다.`,
+    /* 14 */ `${simpleLocation} 어디든 신속 방문하는 24시 출장마사지. 타이, 아로마, 스웨디시 등 나에게 딱 맞는 힐링 테라피 추천.`,
+    /* 15 */ `${locationKeyword} 출장마사지 안심 안내! 예약금 요구 없는 정직한 100% 후불 시스템으로 편안하게 이용해 보세요.`,
+    /* 16 */ `전문 힐러의 손길로 경험하는 ${locationKeyword} 출장마사지. 빠른 방문 시간과 합리적인 코스 정보를 확인하세요.`,
+    /* 17 */ `${simpleLocation} 24시 방문 홈케어 & 출장마사지 서비스. 쌓인 스트레스와 뭉친 근육을 부드럽게 이완시켜 드립니다.`,
+    /* 18 */ `${locationKeyword} 출장마사지 엄선된 제휴업체 정보 안내. 선입금 제로, 검증된 1:1 방문 맞춤 케어 프로그램을 제공합니다.`,
+    /* 19 */ `${locationKeyword} 인근 25분 내 출동하는 출장마사지 서비스! 친절한 상담과 신속한 도착으로 언제나 편안하게 이용 가능합니다.`,
+    /* 20 */ `${simpleLocation} 고객 만족 1위 후불제 출장마사지 가이드. 전신 아로마, 스웨디시 힐링 코스로 피로를 녹여보세요.`,
+    /* 21 */ `${locationKeyword} 출장마사지 24시 365일 상시 운영! 100% 후불 안심 예약 서비스로 부담 없이 이용하세요.`,
+    /* 22 */ `건마사랑 공식 ${locationKeyword} 출장마사지 정보 안내. 신속한 방문과 차별화된 프리미엄 홈케어 서비스를 만나보세요.`,
+    /* 23 */ `${simpleLocation} 전문 출장마사지 가이드. 1:1 맞춤 피로회복 케어로 편안하고 쾌적한 힐링 시간을 선물해 드립니다.`,
+    /* 24 */ `${locationKeyword} 전지역 출장마사지 신속 예약! 선입금 없는 안심 후불제로 즐기는 럭셔리 스웨디시 & 아로마.`,
+    /* 25 */ `지친 몸에 활력을 더해줄 ${locationKeyword} 24시 출장마사지 정보. 검증된 테라피스트의 다채로운 힐링 코스 추천.`,
+    /* 26 */ `${simpleLocation} 출장마사지 가격 및 코스 상세 안내. 24시간 원하는 시간에 맞춰 방문하는 프라이빗 케어.`,
+    /* 27 */ `${locationKeyword} 출장마사지 안심 후불제 추천! 출발 전 선입금을 요구하지 않는 안전한 업체 정보만 모았습니다.`,
+    /* 28 */ `${locationKeyword} 25분 신속 출동 방문 홈케어 & 출장마사지. 뭉친 승모근과 하체 피로를 상쾌하게 풀어드립니다.`,
+    /* 29 */ `${simpleLocation} 고객님을 위한 최상의 24시 출장마사지 제휴 안내. 정직한 서비스와 명확한 요금 정보를 확인해보세요.`,
+    /* 30 */ `${locationKeyword} 출장마사지 타이, 아로마, 건식, 스웨디시 맞춤 케어! 편안한 공간에서 이동 없이 누리는 프라이빗 힐링.`,
+    /* 31 */ `100% 후불제로 안심할 수 있는 ${locationKeyword} 24시 출장마사지. 빠른 방문과 친절한 서비스로 고객님을 모십니다.`,
+    /* 32 */ `${simpleLocation} 출장마사지 힐링 테라피 모음. 24시간 언제나 빠르게 이용할 수 있는 수도권 안심 방문 가이드.`,
+    /* 33 */ `${locationKeyword} 출장마사지 전문 제휴업체 정보. 신속한 방문 서비스와 꼼꼼한 전신 이완 프로그램 안내.`,
+    /* 34 */ `${locationKeyword} 인근 24시 안심 출장마사지 이용 방법. 예약부터 도착까지 100% 후불제로 안전하게 진행됩니다.`,
+    /* 35 */ `${simpleLocation} 출장마사지 전문 테라피스트 빠른 배치. 아로마 및 스웨디시 코스로 피로 회복을 도와드립니다.`,
+    /* 36 */ `${locationKeyword} 24시 출장마사지 빠른 방문 보장. 사기 걱정 없는 100% 안심 후불제 시스템으로 언제든 편하게 이용하세요.`,
+    /* 37 */ `${locationKeyword} 출장마사지 1:1 프라이빗 테라피 안내. 지친 일상 속 깊은 휴식과 릴렉싱을 제공하는 제휴 정보.`,
+    /* 38 */ `${simpleLocation} 25분 내 빠른 출동 출장마사지! 전신 근육 긴장 완화 및 심신 안정을 돕는 프리미엄 케어.`,
+    /* 39 */ `건마사랑에서 엄선한 ${locationKeyword} 24시 출장마사지 업체 모음. 깔끔하고 정직한 서비스 정보를 확인하세요.`,
+    /* 40 */ `${locationKeyword} 출장마사지 타이 & 스웨디시 정보. 선입금 요구가 전혀 없는 안전한 후불제 매장만 제공합니다.`,
+    /* 41 */ `${simpleLocation} 출장마사지 24시간 예약 지원. 나만의 프라이빗한 장소에서 편안하게 피로를 풀어보세요.`,
+    /* 42 */ `${locationKeyword} 출장마사지 릴렉스 전문 가이드. 명확한 요금 체계와 베테랑 힐러의 깊이 있는 홈케어 서비스.`,
+    /* 43 */ `${locationKeyword} 전지역 24시 신속 방문 출장마사지. 아로마 오일 테라피로 지친 몸과 마음을 정성껏 다스려 드립니다.`,
+    /* 44 */ `${simpleLocation} 출장마사지 제휴업체 실시간 가이드. 100% 후불 안전 거래와 깔끔한 서비스 구성.`,
+    /* 45 */ `${locationKeyword} 출장마사지 빠른 예약 안내. 24시간 편한 시간에 맞춰 방문하는 1:1 맞춤 피로해소 프로그램.`,
+    /* 46 */ `${locationKeyword} 인근 출장마사지 추천 가이드! 선입금 없는 후불제로 마음 편히 이용할 수 있는 바디케어.`,
+    /* 47 */ `${simpleLocation} 출장마사지 신속 방문 시스템. 전문 테라피스트가 직접 방문하여 고품격 테라피를 선사합니다.`,
+    /* 48 */ `${locationKeyword} 24시 방문 홈케어 및 출장마사지 완벽 정리. 코스별 요금 및 신속 전화 연결 서비스 제공.`,
+    /* 49 */ `${locationKeyword} 출장마사지 안심 이용 가이드. 100% 후불제 시스템과 정직한 제휴업체 정보로 만족도를 높입니다.`
+  ];
+
+  const finalTitle = titleVariants[variantIndex];
+  const finalDescription = descriptionVariants[variantIndex];
 
   return {
-    // (지역명) 출장마사지 키워드를 제목, 설명, 키워드 전면에 배치
-    title: `${locationKeyword} 출장마사지 | 24시 방문 홈케어 추천 - 건마사랑`,
-    description: `${locationKeyword} 출장마사지 추천! 25분 내 빠른 방문, 선입금 없는 100% 안심 후불제. 타이, 아로마, 스웨디시 힐링 테라피 정보를 확인하세요.`,
+    title: finalTitle,
+    description: finalDescription,
     keywords: [
       `${locationKeyword} 출장마사지`,
       `${locationKeyword}출장마사지`,
-      `${locationKeyword} 출장 마사지`,
+      `${simpleLocation} 출장마사지`,
       `${locationKeyword} 홈케어`,
       `${locationKeyword} 방문 마사지`,
       `${locationKeyword} 스웨디시`,
@@ -40,8 +156,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       "건마사랑"
     ],
     openGraph: {
-      title: `${locationKeyword} 출장마사지 24시 안심 추천 | 건마사랑`,
-      description: `${locationKeyword} 출장마사지 & 프라이빗 바디케어. 선입금 없는 100% 후불제 시스템으로 안심하고 이용하세요.`,
+      title: finalTitle,
+      description: finalDescription,
       url: `https://gunmasarang.store/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
       siteName: "건마사랑",
       locale: "ko_KR",
