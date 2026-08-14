@@ -21,23 +21,31 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const districtName = decodeURIComponent(district);
   const regionName = region === "seoul" ? "서울" : region === "incheon" ? "인천" : "경기";
 
+  // 검색 최적화를 위한 지역 키워드 조합
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
 
   return {
-    title: `${locationKeyword} 방문 홈케어 테라피 추천 | 24시 안심 후불제 건마사랑`,
-    description: `${locationKeyword} 인근 프라이빗 방문 바디케어 안내. 선입금 없는 100% 후불제 시스템, 베테랑 힐러의 스웨디시 & 아로마 릴렉싱 케어로 피로를 해소하세요.`,
+    // (지역명) 출장마사지 키워드를 제목, 설명, 키워드 전면에 배치
+    title: `${locationKeyword} 출장마사지 | 24시 방문 홈케어 추천 - 건마사랑`,
+    description: `${locationKeyword} 출장마사지 추천! 25분 내 빠른 방문, 선입금 없는 100% 안심 후불제. 타이, 아로마, 스웨디시 힐링 테라피 정보를 확인하세요.`,
     keywords: [
-      `${locationKeyword} 홈케어`,
+      `${locationKeyword} 출장마사지`,
+      `${locationKeyword}출장마사지`,
       `${locationKeyword} 출장 마사지`,
-      `${locationKeyword} 방문 테라피`,
+      `${locationKeyword} 홈케어`,
+      `${locationKeyword} 방문 마사지`,
       `${locationKeyword} 스웨디시`,
-      "후불제 바디케어",
+      "24시 출장마사지",
+      "후불제 출장마사지",
       "건마사랑"
     ],
     openGraph: {
-      title: `${locationKeyword} 방문 홈케어 & 힐링 테라피 안내 - 건마사랑`,
-      description: `${locationKeyword} 어디서나 편안하게 이용하는 프라이빗 힐링 케어. 제휴업체 코스 및 이용 가이드를 확인하세요.`,
+      title: `${locationKeyword} 출장마사지 24시 안심 추천 | 건마사랑`,
+      description: `${locationKeyword} 출장마사지 & 프라이빗 바디케어. 선입금 없는 100% 후불제 시스템으로 안심하고 이용하세요.`,
       url: `https://gunmasarang.store/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
+      siteName: "건마사랑",
+      locale: "ko_KR",
+      type: "website",
     },
   };
 }
@@ -101,8 +109,8 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": `${fullTitle} 홈케어 테라피 안내 - 건마사랑`,
-    "description": `${fullTitle} 지역 방문 바디케어 및 힐링 테라피 제휴업체 정보 제공`,
+    "name": `${fullTitle} 출장마사지 & 홈케어 안내 - 건마사랑`,
+    "description": `${fullTitle} 지역 출장마사지, 방문 바디케어 및 힐링 테라피 제휴업체 정보 제공`,
     "url": `https://gunmasarang.store/${region}/${encodeURIComponent(districtName)}`,
     "telephone": "0507-1280-3344",
     "address": {
@@ -150,7 +158,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.15)]">
           <img 
             src="/banner.jpg" 
-            alt={`${fullTitle} 바디케어 안내`} 
+            alt={`${fullTitle} 출장마사지 및 바디케어 안내`} 
             className="w-full h-56 md:h-72 object-cover filter brightness-[0.6]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 md:p-8">
@@ -158,10 +166,10 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
               {regionName.toUpperCase()} · LOCAL HEALING GUIDE
             </span>
             <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-md">
-              {fullTitle} 방문 홈케어 서비스 안내
+              {fullTitle} 출장마사지 & 방문 홈케어 안내
             </h1>
             <p className="text-xs md:text-sm text-gray-300 mt-2 max-w-xl leading-relaxed">
-              {fullTitle} 고객님을 위한 프라이빗 바디케어 가이드입니다. 검증된 테라피 코스와 안심 시스템을 확인해 보세요.
+              {fullTitle} 고객님을 위한 24시 출장마사지 가이드입니다. 검증된 테라피 코스와 100% 후불 안심 시스템을 확인해 보세요.
             </p>
           </div>
         </section>
@@ -271,7 +279,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
           <div className="space-y-3">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> {fullTitle} 방문 소요 시간은 얼마나 되나요?
+                <span className="text-amber-400">Q.</span> {fullTitle} 출장마사지 방문 소요 시간은 얼마나 되나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
                 <span className="text-red-400 font-bold">A.</span> 주요 거점 기준 평균 20분~30분 내외로 원활한 방문이 가능합니다.
