@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "마사지모아 | 전국 24시 방문 홈케어 & 마사지 정보 추천",
     description: "선입금 없는 100% 후불 안심 케어! 전국 주요 지역 빠른 방문 바디케어 정보를 마사지모아에서 확인하세요.",
-    url: "https://massagemoa.pages.dev", // 👈 pages.dev 도메인으로 일치 (추후 개인 도메인 구매 시 변경)
+    url: "https://massage-moa.vercel.app", // 👈 pages.dev 도메인으로 일치 (추후 개인 도메인 구매 시 변경)
     siteName: "마사지모아",
     locale: "ko_KR",
     type: "website",
