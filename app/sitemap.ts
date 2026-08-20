@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // 🌐 적용할 마사지모아 새 도메인 주소 (실제 도메인 확정 시 수정)
- const baseUrl = https://massagemoa.pages.dev ';
+ const baseUrl = 'https://massagemoa.pages.dev';
 
   // 1. 메인 대표 홈 페이지
   const mainRoute: MetadataRoute.Sitemap = [
