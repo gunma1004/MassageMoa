@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // 🌐 적용할 마사지모아 새 도메인 주소 (실제 도메인 확정 시 수정)
- const baseUrl = 'https://massagemoa.pages.dev';
+  const baseUrl = 'https://massagemoa.pages.dev';
 
   // 1. 메인 대표 홈 페이지
   const mainRoute: MetadataRoute.Sitemap = [
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // 4. 구·시 주요 권역 목록 (새로 추가된 부산·대구·대전·광주·울산·청주까지 포함하여 검색 수집 극대화)
+  // 4. 구·시 주요 권역 목록
   const regionList = [
     // 서울 주요 권역
     { region: 'seoul', district: '종로구' },

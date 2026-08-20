@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // 전국 주요 전지역 데이터 (서울, 경기, 인천, 부산, 대구, 대전, 광주, 울산, 청주)
 const regionData: Record<string, { name: string; districts: Record<string, { name: string; dongs: string[] }> }> = {
@@ -229,6 +230,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 }
 
 export default function MainClientUI() {
+  const router = useRouter();
   const [selectedRegion, setSelectedRegion] = useState("seoul");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
@@ -252,7 +254,7 @@ export default function MainClientUI() {
     const districtObj = regionData[selectedRegion]?.districts[selectedDistrict];
     const districtName = districtObj ? districtObj.name : selectedDistrict;
     
-    // 별도의 [dong] 경로 생성 없이 항상 구/시 경로만 이동
+    // 항상 구/시 경로로 이동
     const baseUrl = `/${selectedRegion}/${encodeURIComponent(districtName)}`;
     
     // 선택된 동이 있다면 쿼리 파라미터로 전달
@@ -260,7 +262,8 @@ export default function MainClientUI() {
       ? `${baseUrl}?dong=${encodeURIComponent(selectedDong)}` 
       : baseUrl;
     
-    window.location.href = targetUrl;
+    // Next.js 라우터로 깜빡임 없이 이동
+    router.push(targetUrl);
   };
 
   const currentDistricts = regionData[selectedRegion]?.districts || {};
