@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-// 서울·경기·인천 전지역 데이터
+// 전국 주요 전지역 데이터 (서울, 경기, 인천, 부산, 대구, 대전, 광주, 울산, 청주)
 const regionData: Record<string, { name: string; districts: Record<string, { name: string; dongs: string[] }> }> = {
   seoul: {
     name: "서울특별시",
@@ -66,7 +66,7 @@ const regionData: Record<string, { name: string; districts: Record<string, { nam
       gimpo: { name: "김포시", dongs: ["고촌읍", "통진읍", "대곶면", "월곶면", "하성면", "사우동", "풍무동", "장기동", "구래동", "운양동", "마산동"] },
       siheung: { name: "시흥시", dongs: ["대야동", "신천동", "신현동", "은행동", "매화동", "목감동", "군자동", "월곶동", "정왕동", "배곧동", "과림동", "연성동"] },
       gwangmyeong: { name: "광명시", dongs: ["광명동", "철산동", "하안동", "소하동", "학온동"] },
-      gwangju: { name: "광주시", dongs: ["오포읍", "초월읍", "퇴촌면", "남종면", "남한산성면", "송정동", "광남동"] },
+      gwangju_gyeonggi: { name: "광주시", dongs: ["오포읍", "초월읍", "퇴촌면", "남종면", "남한산성면", "송정동", "광남동"] },
       hanam: { name: "하남시", dongs: ["천현동", "신장동", "덕풍동", "감북동", "위례동", "미사동", "춘궁동", "초이동"] },
       gunpo: { name: "군포시", dongs: ["군포동", "산본동", "금정동", "재궁동", "오금동", "수리동", "대야미동"] },
       osan: { name: "오산시", dongs: ["중앙동", "신장동", "세마동", "초평동", "대원동"] },
@@ -95,6 +95,71 @@ const regionData: Record<string, { name: string; districts: Record<string, { nam
       ganghwa: { name: "강화군", dongs: ["강화읍", "선원면", "불은면", "길상면", "화도면", "양도면", "내가면", "하점면", "양사면", "송해면", "교동면", "삼산면", "서도면"] },
       ongjin: { name: "옹진군", dongs: ["북도면", "연평면", "백령면", "대청면", "덕적면", "자월면", "영흥면"] }
     }
+  },
+  busan: {
+    name: "부산광역시",
+    districts: {
+      haeundae: { name: "해운대구", dongs: ["우동", "좌동", "중동", "재송동", "반여동", "반송동"] },
+      busanjin: { name: "부산진구", dongs: ["부전동", "전포동", "양정동", "가야동", "개금동", "당감동"] },
+      suyeong: { name: "수영구", dongs: ["광안동", "망미동", "수영동", "민락동", "남천동"] },
+      sasang: { name: "사상구", dongs: ["괘법동", "감전동", "주례동", "학장동", "엄궁동"] },
+      saha: { name: "사하구", dongs: ["하단동", "괴정동", "당리동", "신평동", "장림동", "다대동"] },
+      dongnae: { name: "동래구", dongs: ["명륜동", "온천동", "사직동", "수민동", "복산동"] },
+      geumjeong: { name: "금정구", dongs: ["구서동", "장전동", "부곡동", "서동", "남산동"] },
+      namgu_busan: { name: "남구", dongs: ["대연동", "용호동", "감만동", "우암동", "문현동"] }
+    }
+  },
+  daegu: {
+    name: "대구광역시",
+    districts: {
+      junggu_daegu: { name: "중구", dongs: ["동성로동", "삼덕동", "성내동", "대신동", "남산동"] },
+      suseong: { name: "수성구", dongs: ["범어동", "만촌동", "황금동", "지산동", "두산동", "상동"] },
+      donggu_daegu: { name: "동구", dongs: ["신천동", "효목동", "불로봉무동", "동촌동", "방촌동", "안심동"] },
+      seogu_daegu: { name: "서구", dongs: ["내당동", "비산동", "평리동", "상중이동", "원대동"] },
+      namgu_daegu: { name: "남구", dongs: ["이천동", "봉덕동", "대명동"] },
+      bukgu_daegu: { name: "북구", dongs: ["칠성동", "고성동", "침산동", "산격동", "복현동", "태전동"] },
+      dalseo: { name: "달서구", dongs: ["성당동", "두류동", "본리동", "감삼동", "죽전동", "상인동", "월성동"] },
+      dalseong: { name: "달성군", dongs: ["화원읍", "논공읍", "다사읍", "유가읍", "옥포읍", "현풍읍"] }
+    }
+  },
+  daejeon: {
+    name: "대전광역시",
+    districts: {
+      seogu_daejeon: { name: "서구", dongs: ["둔산동", "탄방동", "용문동", "가장동", "괴정동", "도마동", "관저동"] },
+      yuseong: { name: "유성구", dongs: ["봉명동", "궁동", "어은동", "신성동", "전민동", "노은동", "관평동"] },
+      junggu_daejeon: { name: "중구", dongs: ["은행선화동", "대흥동", "문창동", "유천동", "문화동", "태평동"] },
+      donggu_daejeon: { name: "동구", dongs: ["중앙동", "신인동", "효동", "가양동", "용전동", "자양동"] },
+      daedeok: { name: "대덕구", dongs: ["오정동", "대화동", "회덕동", "비래동", "송촌동", "신탄진동"] }
+    }
+  },
+  gwangju_city: {
+    name: "광주광역시",
+    districts: {
+      seogu_gwangju: { name: "서구", dongs: ["상무동", "치평동", "화정동", "풍암동", "금호동", "농성동"] },
+      bukgu_gwangju: { name: "북구", dongs: ["중흥동", "중앙동", "임동", "신안동", "용봉동", "운암동", "첨단동"] },
+      gwangsan: { name: "광산구", dongs: ["송정동", "비아동", "첨단동", "신가동", "신창동", "수완동", "우산동"] },
+      donggu_gwangju: { name: "동구", dongs: ["충장동", "동명동", "계림동", "산수동", "학동", "지원동"] },
+      namgu_gwangju: { name: "남구", dongs: ["양림동", "방림동", "봉선동", "사직동", "월산동", "백운동", "효덕동"] }
+    }
+  },
+  ulsan: {
+    name: "울산광역시",
+    districts: {
+      namgu_ulsan: { name: "남구", dongs: ["신정동", "달동", "삼산동", "무거동", "옥동", "야음장생포동"] },
+      junggu_ulsan: { name: "중구", dongs: ["학성동", "반구동", "복산동", "성남동", "우정동", "태화동", "병영동"] },
+      bukgu_ulsan: { name: "북구", dongs: ["농소동", "효문동", "양정동", "염포동", "송정동"] },
+      donggu_ulsan: { name: "동구", dongs: ["방어동", "일산동", "화정동", "전하동", "남목동"] },
+      ulju: { name: "울주군", dongs: ["온산읍", "언양읍", "온양읍", "범서읍", "청량읍"] }
+    }
+  },
+  cheongju: {
+    name: "청주시",
+    districts: {
+      heungdeok: { name: "흥덕구", dongs: ["복대동", "가경동", "봉명동", "신봉동", "운천동", "오송읍"] },
+      seowon: { name: "서원구", dongs: ["사창동", "모충동", "산남동", "분평동", "수곡동", "성화동"] },
+      sangdang: { name: "상당구", dongs: ["성안동", "탑대성동", "영운동", "금천동", "용담동", "용암동"] },
+      cheongwon: { name: "청원구", dongs: ["우암동", "내덕동", "율량동", "사천동", "오창읍"] }
+    }
   }
 };
 
@@ -102,7 +167,7 @@ const localShops = [
   {
     id: 1,
     name: "🔥 한국미녀홈타이",
-    desc: "서울·경기·인천 전지역 신속 방문! 정성 가득한 테라피 & 릴렉싱 프로그램",
+    desc: "전국 주요지역 신속 방문! 정성 가득한 테라피 & 릴렉싱 프로그램",
     phone: "0507-1280-3299",
     price: "90,000원부터~",
     image: "/shop1.jpg"
@@ -134,7 +199,7 @@ const localShops = [
   {
     id: 5,
     name: "👑 20대그녀의온도홈타이",
-    desc: "선입금 없는 100% 후불제! 수도권 전지역 평균 25분 내 실시간 도착",
+    desc: "선입금 없는 100% 후불제! 수도권 및 전국 주요지역 25분 내 도착",
     phone: "0507-1280-3292",
     price: "60,000원부터~",
     image: "/shop5.jpg"
@@ -190,7 +255,7 @@ export default function MainClientUI() {
     // 별도의 [dong] 경로 생성 없이 항상 구/시 경로만 이동
     const baseUrl = `/${selectedRegion}/${encodeURIComponent(districtName)}`;
     
-    // 선택된 동이 있다면 쿼리 파라미터로 전달 (필요 시 해당 구 페이지에서 텍스트로 표시 및 텍스트 검색에 활용 가능)
+    // 선택된 동이 있다면 쿼리 파라미터로 전달
     const targetUrl = selectedDong 
       ? `${baseUrl}?dong=${encodeURIComponent(selectedDong)}` 
       : baseUrl;
@@ -210,14 +275,14 @@ export default function MainClientUI() {
           <Link href="/" className="flex items-center gap-3 group">
             <img 
               src="/logo.png" 
-              alt="건마사랑 로고" 
+              alt="마사지모아 로고" 
               className="w-10 h-10 rounded-xl object-cover border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform" 
             />
             <div className="flex flex-col">
               <span className="text-xl font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-                건마사랑
+                마사지모아
               </span>
-              <span className="text-[10px] text-gray-400 tracking-tighter">SEOUL · GYEONGGI · INCHEON</span>
+              <span className="text-[10px] text-gray-400 tracking-tighter">MASSAGE MOA · NATIONWIDE SERVICE</span>
             </div>
           </Link>
           
@@ -249,13 +314,13 @@ export default function MainClientUI() {
             
             <div className="relative z-10 space-y-3">
               <span className="inline-block px-4 py-1 rounded-full bg-amber-500 text-black font-extrabold text-xs tracking-widest shadow-lg animate-bounce">
-                ✨ 100% 후불제 안심 보장 시스템
+                ✨ 100% 후불제 안심 예약 플랫폼
               </span>
               <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-lg">
-                서울·경기·인천 <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">25분 내 신속 방문 케어</span>
+                전국 주요 도시 <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">25분 내 신속 방문 케어</span>
               </h1>
               <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto drop-shadow">
-                엄선된 최고급 베테랑 관리사의 프라이빗 피로회복 프로그램! 지금 바로 내 주변 제휴업체를 만나보세요.
+                엄선된 베테랑 관리사의 맞춤형 힐링 피로회복! 지금 바로 내 주변 마사지모아 제휴샵을 확인하세요.
               </p>
             </div>
           </div>
@@ -266,7 +331,7 @@ export default function MainClientUI() {
           <div className="text-center mb-6">
             <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">BEST RECOMMENDED SHOPS</p>
             <h2 className="text-xl md:text-2xl font-black text-white mt-1">
-              🏆 건마사랑 최고의 추천 제휴업체 (5곳)
+              🏆 마사지모아 추천 프리미엄 제휴업체
             </h2>
           </div>
 
@@ -308,7 +373,7 @@ export default function MainClientUI() {
           <div className="bg-gradient-to-b from-[#18181b] to-[#0f0f11] border-2 border-amber-500/40 p-6 rounded-3xl max-w-xl mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.8)] text-left relative overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <label className="text-xs text-amber-400 font-black uppercase tracking-wider flex items-center gap-1.5">
-                📍 내 동네 검색 및 이동하기
+                📍 내 주변 마사지 검색하기
               </label>
               <span className="text-[11px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
                 지역 전용 화면 이동
@@ -368,7 +433,7 @@ export default function MainClientUI() {
                 onClick={handleSearch}
                 className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.4)] mt-3 cursor-pointer transform active:scale-[0.98]"
               >
-                🚀 해당 지역 화면으로 이동하기
+                🚀 내 주변 마사지샵 모아보기
               </button>
             </div>
           </div>
@@ -378,28 +443,28 @@ export default function MainClientUI() {
         <section className="bg-[#0d0d0f] border border-amber-500/30 p-6 md:p-8 rounded-3xl space-y-6">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest">HOW TO USE</span>
-            <h3 className="text-xl font-black text-white mt-1">건마사랑 이용 방법</h3>
+            <h3 className="text-xl font-black text-white mt-1">마사지모아 이용 가이드</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 1</span>
-              <h4 className="font-bold text-white mt-1">문의 준비</h4>
-              <p className="text-xs text-gray-400 mt-1">희망하시는 지역명을 알려줍니다.</p>
+              <h4 className="font-bold text-white mt-1">지역 선택</h4>
+              <p className="text-xs text-gray-400 mt-1">원하시는 방문 및 이용 지역을 선택합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 2</span>
-              <h4 className="font-bold text-white mt-1">가능 여부</h4>
-              <p className="text-xs text-gray-400 mt-1">원하시는 시간대를 확인합니다.</p>
+              <h4 className="font-bold text-white mt-1">업체 비교</h4>
+              <p className="text-xs text-gray-400 mt-1">코스, 가격, 리뷰를 꼼꼼하게 확인합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 3</span>
-              <h4 className="font-bold text-white mt-1">코스 확인</h4>
-              <p className="text-xs text-gray-400 mt-1">이용 조건과 코스를 선택합니다.</p>
+              <h4 className="font-bold text-white mt-1">간편 예약</h4>
+              <p className="text-xs text-gray-400 mt-1">전화 연결을 통해 희망 시간대를 예약합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h4 className="font-bold text-white mt-1">방문 완료</h4>
-              <p className="text-xs text-gray-400 mt-1">도착 후 후불제로 케어를 받습니다.</p>
+              <h4 className="font-bold text-white mt-1">후불 힐링 케어</h4>
+              <p className="text-xs text-gray-400 mt-1">선입금 없이 편안하게 케어를 이용합니다.</p>
             </div>
           </div>
         </section>
@@ -408,7 +473,7 @@ export default function MainClientUI() {
         <section className="space-y-4">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">REAL REVIEWS</span>
-            <h3 className="text-xl font-black text-white mt-1">실제 이용 고객 후기</h3>
+            <h3 className="text-xl font-black text-white mt-1">마사지모아 실제 이용 고객 후기</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-[#0f0f12] p-5 rounded-2xl border border-white/5 space-y-2">
@@ -441,11 +506,11 @@ export default function MainClientUI() {
           <div className="space-y-3">
             <FaqItem 
               question="방문까지 보통 시간이 얼마나 소요되나요?"
-              answer="서울, 경기, 인천 주요 지역 기준 평균 20분~30분 내외로 신속하게 방문 서비스가 가능합니다."
+              answer="전국 주요 지역 기준 평균 20분~30분 내외로 신속하게 방문 서비스가 가능합니다."
             />
             <FaqItem 
               question="선입금이나 예약금이 발생하나요?"
-              answer="건마사랑 제휴업체는 100% 후불제로 운영되므로 도착 전 선입금을 절대 요구하지 않습니다."
+              answer="마사지모아 제휴업체는 100% 후불제로 운영되므로 도착 전 선입금을 절대 요구하지 않습니다."
             />
           </div>
         </section>
@@ -461,12 +526,12 @@ export default function MainClientUI() {
               href="tel:0507-1280-3344" 
               className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
             >
-              <span>🤝</span> 제휴문의 (0507-1280-3344)
+              <span>🤝</span> 제휴 및 입점문의 (0507-1280-3344)
             </a>
           </div>
 
-          <p className="text-gray-400 font-bold">건마사랑은 건전하고 안전한 제휴 마사지 정보 플랫폼입니다.</p>
-          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
+          <p className="text-gray-400 font-bold">마사지모아는 건전하고 신뢰할 수 있는 전국의 마사지·테라피 정보 플랫폼입니다.</p>
+          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 마사지모아 ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>

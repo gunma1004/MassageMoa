@@ -14,15 +14,15 @@ export default function NavigationHeader() {
         <Link href="/" className="flex items-center gap-2.5 group">
           <img 
             src="/logo.png" 
-            alt="건마사랑 로고" 
+            alt="마사지모아 로고" 
             className="w-9 h-9 rounded-xl object-cover border border-amber-500/40 group-hover:scale-105 transition-transform" 
           />
           <span className="text-lg font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-            건마사랑
+            마사지모아
           </span>
         </Link>
 
-        {/* 🌟 요청하신 카테고리 메뉴 목록 */}
+        {/* 카테고리 메뉴 목록 */}
         <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-gray-300">
           
           {/* 1. 서비스 */}
@@ -35,7 +35,7 @@ export default function NavigationHeader() {
             가격안내
           </Link>
 
-          {/* 3. (지역)여행 */}
+          {/* 3. 지역여행 */}
           <Link href="/travel" className="hover:text-amber-400 transition-colors flex items-center gap-1">
             지역여행
           </Link>
@@ -45,7 +45,7 @@ export default function NavigationHeader() {
             맛집·숙소
           </Link>
 
-          {/* 5. 지역안내 (드롭다운) */}
+          {/* 5. 지역안내 (드롭다운 - 추가 지역 포함) */}
           <div 
             className="relative cursor-pointer py-2"
             onMouseEnter={() => setIsRegionOpen(true)}
@@ -57,15 +57,33 @@ export default function NavigationHeader() {
             </button>
 
             {isRegionOpen && (
-              <div className="absolute top-full left-0 w-36 bg-[#121214] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs z-50">
-                <Link href="/seoul/서울특별시" className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400">
+              <div className="absolute top-full left-0 w-40 bg-[#121214] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs z-50 max-h-72 overflow-y-auto">
+                <Link href="/seoul/서울특별시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
                   📍 서울 지역
                 </Link>
-                <Link href="/gyeonggi/경기도" className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400">
+                <Link href="/gyeonggi/경기도" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
                   📍 경기 지역
                 </Link>
-                <Link href="/incheon/인천광역시" className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400">
+                <Link href="/incheon/인천광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
                   📍 인천 지역
+                </Link>
+                <Link href="/busan/부산광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 부산 지역
+                </Link>
+                <Link href="/daegu/대구광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 대구 지역
+                </Link>
+                <Link href="/daejeon/대전광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 대전 지역
+                </Link>
+                <Link href="/gwangju_city/광주광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 광주 지역
+                </Link>
+                <Link href="/ulsan/울산광역시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 울산 지역
+                </Link>
+                <Link href="/cheongju/청주시" className="block px-4 py-1.5 hover:bg-amber-500/10 hover:text-amber-400">
+                  📍 청주 지역
                 </Link>
               </div>
             )}

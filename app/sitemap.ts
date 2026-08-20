@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 🌐 적용할 새 도메인 주수
-  const baseUrl = 'https://gunmasarang.store';
+  // 🌐 적용할 마사지모아 새 도메인 주소 (실제 도메인 확정 시 수정)
+  const baseUrl = 'https://massagemoa.com';
 
   // 1. 메인 대표 홈 페이지
   const mainRoute: MetadataRoute.Sitemap = [
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // 4. 구·시 주요 권역 목록 (네이버 스팸 방지 및 404 방지를 위해 구/시 경로만 유일 URL로 깔끔하게 정돈)
+  // 4. 구·시 주요 권역 목록 (새로 추가된 부산·대구·대전·광주·울산·청주까지 포함하여 검색 수집 극대화)
   const regionList = [
     // 서울 주요 권역
     { region: 'seoul', district: '종로구' },
@@ -88,6 +88,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { region: 'incheon', district: '부평구' },
     { region: 'incheon', district: '계양구' },
     { region: 'incheon', district: '서구' },
+
+    // 부산 주요 권역
+    { region: 'busan', district: '해운대구' },
+    { region: 'busan', district: '부산진구' },
+    { region: 'busan', district: '수영구' },
+    { region: 'busan', district: '사상구' },
+    { region: 'busan', district: '사하구' },
+    { region: 'busan', district: '동래구' },
+    { region: 'busan', district: '금정구' },
+    { region: 'busan', district: '남구' },
+
+    // 대구 주요 권역
+    { region: 'daegu', district: '중구' },
+    { region: 'daegu', district: '수성구' },
+    { region: 'daegu', district: '동구' },
+    { region: 'daegu', district: '서구' },
+    { region: 'daegu', district: '남구' },
+    { region: 'daegu', district: '북구' },
+    { region: 'daegu', district: '달서구' },
+
+    // 대전 주요 권역
+    { region: 'daejeon', district: '서구' },
+    { region: 'daejeon', district: '유성구' },
+    { region: 'daejeon', district: '중구' },
+    { region: 'daejeon', district: '동구' },
+    { region: 'daejeon', district: '대덕구' },
+
+    // 광주 주요 권역
+    { region: 'gwangju_city', district: '서구' },
+    { region: 'gwangju_city', district: '북구' },
+    { region: 'gwangju_city', district: '광산구' },
+    { region: 'gwangju_city', district: '동구' },
+    { region: 'gwangju_city', district: '남구' },
+
+    // 울산 주요 권역
+    { region: 'ulsan', district: '남구' },
+    { region: 'ulsan', district: '중구' },
+    { region: 'ulsan', district: '북구' },
+    { region: 'ulsan', district: '동구' },
+
+    // 청주 주요 권역
+    { region: 'cheongju', district: '흥덕구' },
+    { region: 'cheongju', district: '서원구' },
+    { region: 'cheongju', district: '상당구' },
+    { region: 'cheongju', district: '청원구' },
   ];
 
   const regionRoutes: MetadataRoute.Sitemap = regionList.map((item) => {

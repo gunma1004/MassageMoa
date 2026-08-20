@@ -22,7 +22,7 @@ const shopData: Record<string, {
   "1": {
     name: "🔥 한국미녀홈타이",
     phone: "0507-1280-3299",
-    location: "서울 · 경기 · 인천 전지역 25분 내 신속 방문",
+    location: "전국 주요 지역 25분 내 신속 방문",
     badge: "실시간 만족도 1위",
     image: "/shop1.jpg",
     desc: "지친 일상을 깨우는 정성 가득한 테라피! 최고급 베테랑 힐러진이 고객님의 공간으로 직접 찾아갑니다.",
@@ -32,12 +32,12 @@ const shopData: Record<string, {
       { name: "한국 VIP스웨디시", time: "60분", price: "140,000원", desc: "최고급 천연 오일로 전신을 부드럽게 이완시키는 힐링 코스" },
       { name: "한국 VIP스웨디시", time: "90분", price: "180,000원", desc: "건식+아로마+집중케어가 결합된 최고급 풀케어 코스" }
     ],
-    features: ["100% 후불제 안심결제", "24시간 365일 연중무휴", "수도권 전지역 25분 칼도착", "위생 및 방역 관리 철저"]
+    features: ["100% 후불제 안심결제", "24시간 365일 연중무휴", "전국 주요 거점 25분 칼도착", "위생 및 방역 관리 철저"]
   },
   "2": {
     name: "✨ 너무이쁜홈타이",
     phone: "0507-1280-3190",
-    location: "서울 · 경기 · 인천 전지역 방문",
+    location: "전국 주요 거점 신속 방문",
     badge: "재방문율 최우수",
     image: "/shop2.jpg",
     desc: "품격 있는 힐링을 선사하는 프라이빗 케어! 최고급 오일과 맞춤형 테라피로 특별한 휴식을 드립니다.",
@@ -53,7 +53,7 @@ const shopData: Record<string, {
   "3": {
     name: "💎 예쁜걸홈타이",
     phone: "0507-1280-3185",
-    location: "서울 · 경기 · 인천 전지역 신속 도착",
+    location: "전국 주요 지역 신속 도착",
     badge: "24시 상시 할인",
     image: "/shop3.jpg",
     desc: "칼도착 25분 보장! 철저한 위생 관리와 럭셔리한 서비스로 완벽한 피로 회복을 약속드립니다.",
@@ -67,7 +67,7 @@ const shopData: Record<string, {
   "4": {
     name: "🌟 20대프리미엄홈케어",
     phone: "0507-1280-3222",
-    location: "서울 · 경기 · 인천 전지역 방문",
+    location: "전국 주요 지역 24시 방문",
     badge: "젊은 감성 베테랑",
     image: "/shop4.jpg",
     desc: "전문 힐러들의 맞춤형 VIP 피로회복 특화 프로그램! 차원이 다른 프리미엄 방문케어를 경험해보세요.",
@@ -82,17 +82,17 @@ const shopData: Record<string, {
   "5": {
     name: "👑 20대그녀의온도홈타이",
     phone: "0507-1280-3292",
-    location: "서울 · 경기 · 인천 전지역 실시간 방문",
+    location: "전국 주요 지역 실시간 방문",
     badge: "인기도 TOP 5",
     image: "/shop5.jpg",
-    desc: "선입금 없는 100% 후불제 안심 이용! 수도권 전지역 평균 25분 내 칼같이 도착합니다.",
+    desc: "선입금 없는 100% 후불제 안심 이용! 주요 전지역 평균 25분 내 칼같이 도착합니다.",
     courses: [
       { name: "온도 타이 케어", time: "60분", price: "60,000원", desc: "지친 피로를 깔끔하게 해소하는 기본 건식 케어" },
       { name: "온도 스페셜 아로마", time: "60분", price: "70,000원", desc: "향기로운 아로마 향과 함께하는 부드러운 릴렉싱" },
       { name: "온도 스페셜 코스", time: "90분", price: "120,000원", desc: "향기로운 아로마 향과 함께하는 부드러운 릴렉싱" },
       { name: "👑 한국 관리사 코스", time: "60분", price: "140,000원", desc: "전신 집중 케어와 함께하는 완벽한 피로 회복" }
     ],
-    features: ["100% 후불제", "수도권 전지역 빠른 도착", "고객 만족도 최상"]
+    features: ["100% 후불제", "전지역 빠른 도착", "고객 만족도 최상"]
   }
 };
 
@@ -110,12 +110,12 @@ export default function ShopDetailPage({ params }: PageProps) {
           <Link href="/" className="flex items-center gap-3 group">
             <img 
               src="/logo.png" 
-              alt="건마사랑 로고" 
+              alt="마사지모아 로고" 
               className="w-10 h-10 rounded-xl object-cover border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform" 
             />
             <div className="flex flex-col">
               <span className="text-xl font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-                건마사랑
+                마사지모아
               </span>
               <span className="text-[10px] text-gray-400 tracking-tighter">PREMIUM SHOP DETAIL</span>
             </div>
@@ -201,8 +201,8 @@ export default function ShopDetailPage({ params }: PageProps) {
             <span>📌</span> 이용 예약 안내
           </h3>
           <ul className="text-xs text-gray-300 space-y-1.5 list-disc list-inside">
-            <li>건마사랑 제휴업체는 <strong>100% 후불제</strong>로 운영됩니다. 도착 전 선입금을 요구하지 않습니다.</li>
-            <li>희망하시는 시간 20~30분 전에 미리 예약 문의 주시면 원활한 서비스가 가능합니다.</li>
+            <li>마사지모아 제휴업체는 <strong>100% 후불제</strong>로 운영됩니다. 도착 전 선입금을 절대 요구하지 않습니다.</li>
+            <li>희망하시는 시간 20~30분 전에 미리 예약 문의 주시면 더욱 신속한 방문 서비스가 가능합니다.</li>
           </ul>
         </section>
 
@@ -218,7 +218,7 @@ export default function ShopDetailPage({ params }: PageProps) {
             <span className="text-lg">📞</span> 전화로 즉시예약
           </a>
           <a 
-            href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다. (건마사랑 보고 연락드렸어요)`)}`}
+            href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다. (마사지모아 보고 연락드렸어요)`)}`}
             className="flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white font-black py-3.5 rounded-2xl text-xs md:text-sm border border-white/10 hover:border-amber-500/40 transition-transform active:scale-95"
           >
             <span className="text-lg">💬</span> 간편 문자상담

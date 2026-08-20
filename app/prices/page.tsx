@@ -1,33 +1,122 @@
+import { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "코스별 가격 안내 | 마사지모아 - 100% 후불제 투명한 요금 가이드",
+  description: "타이, 아로마, 감성 스웨디시, 한국인 VIP 코스 등 마사지모아 제휴업체의 투명한 가격과 프로그램을 확인하세요. 선입금 없는 100% 안심 후불제.",
+  openGraph: {
+    title: "코스별 가격 안내 | 마사지모아",
+    description: "마사지모아의 투명하고 정직한 코스별 요금 및 프로그램 안내",
+    url: "https://massagemoa.com/prices",
+    siteName: "마사지모아",
+    locale: "ko_KR",
+    type: "website",
+  },
+};
+
 export default function PricesPage() {
   const priceList = [
-    { title: "타이 건식 케어 (60분)", price: "60,000원부터", desc: "전신 피로 해소 기본 스트레칭 프로그램" },
-    { title: "아로마 오일 케어 (60분)", price: "70,000원부터", desc: "천연 아로마 오일을 활용한 부드러운 전신 릴렉싱" },
-    { title: "감성 스웨디시 (60분)", price: "90,000원부터", desc: "림프 순환과 심신 안정을 돕는 VIP 프리미엄 케어" },
-    { title: "한국인 베테랑 VIP 코스 (60분)", price: "140,000원부터", desc: "맞춤형 피로회복 특화 시그니처 힐링 프로그램" },
+    { 
+      title: "타이 건식 케어 (60분)", 
+      price: "60,000원부터~", 
+      desc: "전신 피로 해소 및 뭉친 근육을 부드럽게 풀어주는 기본 스트레칭 프로그램",
+      badge: "가성비 추천"
+    },
+    { 
+      title: "아로마 오일 케어 (60분)", 
+      price: "70,000원부터~", 
+      desc: "천연 아로마 오일을 활용한 부드러운 전신 릴렉싱 및 피부 보습 케어",
+      badge: "인기 코스"
+    },
+    { 
+      title: "감성 스웨디시 (60분)", 
+      price: "90,000원부터~", 
+      desc: "림프 순환과 심신 안정을 돕는 감성 힐링 VIP 프리미엄 프로그램",
+      badge: "만족도 1위"
+    },
+    { 
+      title: "한국인 베테랑 VIP 코스 (60분)", 
+      price: "140,000원부터~", 
+      desc: "체형별 맞춤형 피로회복 특화 최고급 시그니처 힐링 케어",
+      badge: "프리미엄"
+    },
   ];
 
   return (
     <div className="bg-[#050505] text-gray-100 min-h-screen py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-8">
+        
+        {/* 상단 타이틀 */}
         <div className="text-center space-y-2">
-          <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">TRANSPARENT PRICE</span>
-          <h1 className="text-3xl font-black text-white">투명한 코스별 가격 안내</h1>
-          <p className="text-xs text-gray-400">100% 후불제 안심 예약 / 도착 전 선입금 절대 금지</p>
+          <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
+            TRANSPARENT PRICE GUIDE
+          </span>
+          <h1 className="text-3xl md:text-4xl font-black text-white">
+            투명한 코스별 가격 안내
+          </h1>
+          <p className="text-xs md:text-sm text-gray-400">
+            마사지모아는 100% 후불제 안심 예약 시스템으로 운영됩니다.
+          </p>
         </div>
 
+        {/* 안심 보장 안내 박스 */}
+        <div className="bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-amber-500/10 border border-amber-500/30 p-4 md:p-5 rounded-2xl flex items-center justify-between text-left shadow-inner">
+          <div className="space-y-1">
+            <span className="text-amber-300 font-extrabold text-xs md:text-sm flex items-center gap-1.5">
+              🛡️ 100% 후불 안심 보장제
+            </span>
+            <p className="text-[11px] md:text-xs text-gray-300">
+              마사지모아 모든 제휴업체는 관리사 도착 전 <span className="text-amber-400 font-bold">선입금 및 예약금을 절대 요구하지 않습니다.</span>
+            </p>
+          </div>
+        </div>
+
+        {/* 코스별 가격 카드 리스트 */}
         <div className="space-y-4">
           {priceList.map((item, idx) => (
-            <div key={idx} className="bg-[#121214] border border-amber-500/20 p-5 rounded-2xl flex justify-between items-center">
-              <div>
-                <h3 className="font-bold text-white text-sm md:text-base">{item.title}</h3>
-                <p className="text-xs text-gray-400 mt-1">{item.desc}</p>
+            <div 
+              key={idx} 
+              className="bg-[#121214] border border-amber-500/20 hover:border-amber-500/50 p-5 md:p-6 rounded-2xl flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all group shadow-md"
+            >
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
+                    {item.badge}
+                  </span>
+                  <h3 className="font-extrabold text-white text-base md:text-lg group-hover:text-amber-400 transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-              <span className="text-amber-400 font-black text-base md:text-lg bg-amber-500/10 px-3.5 py-1.5 rounded-xl border border-amber-500/20">
-                {item.price}
-              </span>
+
+              <div className="flex items-center justify-between md:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-white/5">
+                <span className="text-amber-400 font-black text-lg md:text-xl bg-amber-500/10 px-4 py-1.5 rounded-xl border border-amber-500/20 whitespace-nowrap shadow-inner">
+                  {item.price}
+                </span>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* 하단 상담 및 홈 이동 버튼 */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+          <a
+            href="tel:0507-1280-3344"
+            className="w-full sm:w-auto text-center bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-lg transition-all active:scale-95"
+          >
+            📞 실시간 코스 및 요금 문의 (0507-1280-3344)
+          </a>
+          <Link
+            href="/"
+            className="w-full sm:w-auto text-center bg-neutral-900 hover:bg-neutral-800 text-gray-300 hover:text-white border border-white/10 font-bold text-xs px-6 py-3.5 rounded-xl transition-all"
+          >
+            🏠 홈으로 돌아가기
+          </Link>
+        </div>
+
       </div>
     </div>
   );
