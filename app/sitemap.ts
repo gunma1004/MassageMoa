@@ -1,12 +1,10 @@
 import { MetadataRoute } from 'next';
 
-export const dynamic = 'force-static';
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 🌐 적용할 마사지모아 새 도메인 주소 (실제 도메인 확정 시 수정)
-  const baseUrl = 'https://massagemoa.pages.dev';
+  // 🌐 실제 서비스 도메인 주소로 통일
+  const baseUrl = 'https://massage-moa.vercel.app';
 
-  // 1. 메인 대표 홈 페이지
+  // 1. 메인 홈 페이지
   const mainRoute: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -16,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 2. 상단 카테고리 메인 페이지들 (SEO 품질 향상용)
+  // 2. 상단 카테고리 메인 페이지
   const categoryRoutes: MetadataRoute.Sitemap = [
     'services',
     'prices',
@@ -38,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // 4. 구·시 주요 권역 목록
+  // 4. 구·시 주요 권역 목록 (83개 지역)
   const regionList = [
     // 서울 주요 권역
     { region: 'seoul', district: '종로구' },
