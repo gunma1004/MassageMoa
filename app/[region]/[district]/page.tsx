@@ -45,7 +45,7 @@ function getRegionFullName(region: string): string {
   }
 }
 
-// 💡 20가지 출장마사지 타이틀 및 메타 디스크립션 무작위 패턴 생성 함수
+// 💡 네이버 로봇이 명확히 수집할 수 있도록 개선된 메타데이터 생성 함수
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
@@ -58,7 +58,6 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
   const simpleLocation = dongName ? `${districtName} ${dongName}` : districtName;
 
-  // 고유 문자열 연산을 통한 20가지 중 하나 선택 (0 ~ 19)
   const charSum = (locationKeyword + dongName + districtName).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const variantIndex = charSum % 20;
 
