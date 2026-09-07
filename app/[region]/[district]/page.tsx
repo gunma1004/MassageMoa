@@ -45,10 +45,7 @@ function getRegionFullName(region: string): string {
 }
 
 export default function RegionalDetailPage({ params, searchParams }: PageProps) {
-  // 클라이언트 환경에서 비동기 params/searchParams 처리
   const [resolvedData, setResolvedData] = useState<{ region: string; district: string; dongName: string } | null>(null);
-  
-  // 새로고침 시 랜덤 섞인 샵 리스트를 담을 상태
   const [shuffledShops, setShuffledShops] = useState<any[]>([]);
 
   useEffect(() => {
@@ -61,7 +58,6 @@ export default function RegionalDetailPage({ params, searchParams }: PageProps) 
       
       setResolvedData({ region: reg, district: dist, dongName: dong });
 
-      // 지역별 기본 샵 데이터 정의
       const isDaejeonOrCheongju = reg === "daejeon" || reg === "cheongju";
       const isPreparingRegion = reg === "busan" || reg === "daegu" || reg === "gwangju_city" || reg === "ulsan";
       
@@ -86,11 +82,11 @@ export default function RegionalDetailPage({ params, searchParams }: PageProps) 
           { id: 2, name: `✨ ${fullTitle} 너무이쁜 홈테라피`, desc: "최고급 천연 아로마 오일을 활용한 품격 있는 전신 바디 이완 케어 서비스", phone: "0507-1280-3190", price: "60,000원부터~", image: "/shop2.jpg" },
           { id: 3, name: `💎 ${fullTitle} 예쁜걸 프리미엄`, desc: "재방문율 높은 안심 케어! 철저한 위생 관리와 럭셔리 스웨디시 프로그램 제공", phone: "0507-1280-3185", price: "60,000원부터~", image: "/shop3.jpg" },
           { id: 4, name: `🌟 ${fullTitle} 20대 프리미엄 힐링`, desc: "전문 힐러진의 맞춤형 VIP 체형 맞춤 피로회복 특화 프로그램 운영 중", phone: "0507-1280-3222", price: "60,000원부터~", image: "/shop4.jpg" },
-          { id: 5, name: `👑 ${fullTitle} 한국골든테라피`, desc: "선입금 전혀 없는 100% 안심 후불제! 신속 방문 프라이빗 서비스", phone: "0507-1280-3361", price: "60,000원부터~", image: "/shop5.jpg" }
+          { id: 5, name: `👑 ${fullTitle} 한국골든테라피`, desc: "선입금 전혀 없는 100% 안심 후불제! 신속 방문 프라이빗 서비스", phone: "0507-1280-3360", price: "60,000원부터~", image: "/shop5.jpg" }
         ];
       }
 
-      // 페이지 진입/새로고침 시 무작위 랜덤 섞기
+      // 새로고침 시 5개 샵 무작위 셔플
       const randomized = [...baseShops].sort(() => Math.random() - 0.5);
       setShuffledShops(randomized);
     }
@@ -137,7 +133,7 @@ export default function RegionalDetailPage({ params, searchParams }: PageProps) 
         {/* 클라이언트 사이드 키워드 인젝션 영역 */}
         <ClientTextMixer locationText={fullTitle} />
 
-        {/* 제휴업체 섹션 (새로고침 시 랜덤 섞인 리스트 출력) */}
+        {/* 제휴업체 섹션 */}
         <section className="space-y-6">
           <div className="text-center">
             <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">
