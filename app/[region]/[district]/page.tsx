@@ -1,4 +1,6 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ClientTextMixer from "./ClientTextMixer";
 
@@ -10,137 +12,6 @@ interface PageProps {
   searchParams: Promise<{
     dong?: string;
   }>;
-}
-
-// 🎯 Cloudflare 정적 Export 필수 함수 (정적 빌드 시 모든 지역 페이지 생성)
-export async function generateStaticParams() {
-  const regionList = [
-    // 서울
-    { region: "seoul", district: "종로구" },
-    { region: "seoul", district: "중구" },
-    { region: "seoul", district: "용산구" },
-    { region: "seoul", district: "성동구" },
-    { region: "seoul", district: "광진구" },
-    { region: "seoul", district: "동대문구" },
-    { region: "seoul", district: "중랑구" },
-    { region: "seoul", district: "성북구" },
-    { region: "seoul", district: "강북구" },
-    { region: "seoul", district: "도봉구" },
-    { region: "seoul", district: "노원구" },
-    { region: "seoul", district: "은평구" },
-    { region: "seoul", district: "서대문구" },
-    { region: "seoul", district: "마포구" },
-    { region: "seoul", district: "양천구" },
-    { region: "seoul", district: "강서구" },
-    { region: "seoul", district: "구로구" },
-    { region: "seoul", district: "금천구" },
-    { region: "seoul", district: "영등포구" },
-    { region: "seoul", district: "동작구" },
-    { region: "seoul", district: "관악구" },
-    { region: "seoul", district: "서초구" },
-    { region: "seoul", district: "강남구" },
-    { region: "seoul", district: "송파구" },
-    { region: "seoul", district: "강동구" },
-    // 경기
-    { region: "gyeonggi", district: "수원시 장안구" },
-    { region: "gyeonggi", district: "수원시 권선구" },
-    { region: "gyeonggi", district: "수원시 팔달구" },
-    { region: "gyeonggi", district: "수원시 영통구" },
-    { region: "gyeonggi", district: "성남시 수정구" },
-    { region: "gyeonggi", district: "성남시 중원구" },
-    { region: "gyeonggi", district: "성남시 분당구" },
-    { region: "gyeonggi", district: "고양시 덕양구" },
-    { region: "gyeonggi", district: "고양시 일산동구" },
-    { region: "gyeonggi", district: "고양시 일산서구" },
-    { region: "gyeonggi", district: "용인시 처인구" },
-    { region: "gyeonggi", district: "용인시 기흥구" },
-    { region: "gyeonggi", district: "용인시 수지구" },
-    { region: "gyeonggi", district: "부천시 원미구" },
-    { region: "gyeonggi", district: "부천시 소사구" },
-    { region: "gyeonggi", district: "부천시 오정구" },
-    { region: "gyeonggi", district: "안산시 상록구" },
-    { region: "gyeonggi", district: "안산시 단원구" },
-    { region: "gyeonggi", district: "안양시 만안구" },
-    { region: "gyeonggi", district: "안양시 동안구" },
-    { region: "gyeonggi", district: "남양주시" },
-    { region: "gyeonggi", district: "화성시" },
-    { region: "gyeonggi", district: "평택시" },
-    { region: "gyeonggi", district: "의정부시" },
-    { region: "gyeonggi", district: "파주시" },
-    { region: "gyeonggi", district: "김포시" },
-    { region: "gyeonggi", district: "시흥시" },
-    { region: "gyeonggi", district: "광명시" },
-    { region: "gyeonggi", district: "광주시" },
-    { region: "gyeonggi", district: "하남시" },
-    { region: "gyeonggi", district: "군포시" },
-    { region: "gyeonggi", district: "오산시" },
-    { region: "gyeonggi", district: "이천시" },
-    { region: "gyeonggi", district: "안성시" },
-    { region: "gyeonggi", district: "양주시" },
-    { region: "gyeonggi", district: "포천시" },
-    { region: "gyeonggi", district: "여주시" },
-    { region: "gyeonggi", district: "동두천시" },
-    { region: "gyeonggi", district: "가평군" },
-    { region: "gyeonggi", district: "양평군" },
-    { region: "gyeonggi", district: "연천군" },
-    // 인천
-    { region: "incheon", district: "중구" },
-    { region: "incheon", district: "동구" },
-    { region: "incheon", district: "미추홀구" },
-    { region: "incheon", district: "연수구" },
-    { region: "incheon", district: "남동구" },
-    { region: "incheon", district: "부평구" },
-    { region: "incheon", district: "계양구" },
-    { region: "incheon", district: "서구" },
-    { region: "incheon", district: "강화군" },
-    { region: "incheon", district: "옹진군" },
-    // 부산
-    { region: "busan", district: "해운대구" },
-    { region: "busan", district: "부산진구" },
-    { region: "busan", district: "수영구" },
-    { region: "busan", district: "사상구" },
-    { region: "busan", district: "사하구" },
-    { region: "busan", district: "동래구" },
-    { region: "busan", district: "금정구" },
-    { region: "busan", district: "남구" },
-    // 대구
-    { region: "daegu", district: "중구" },
-    { region: "daegu", district: "수성구" },
-    { region: "daegu", district: "동구" },
-    { region: "daegu", district: "서구" },
-    { region: "daegu", district: "남구" },
-    { region: "daegu", district: "북구" },
-    { region: "daegu", district: "달서구" },
-    { region: "daegu", district: "달성군" },
-    // 대전
-    { region: "daejeon", district: "서구" },
-    { region: "daejeon", district: "유성구" },
-    { region: "daejeon", district: "중구" },
-    { region: "daejeon", district: "동구" },
-    { region: "daejeon", district: "대덕구" },
-    // 광주
-    { region: "gwangju_city", district: "서구" },
-    { region: "gwangju_city", district: "북구" },
-    { region: "gwangju_city", district: "광산구" },
-    { region: "gwangju_city", district: "동구" },
-    { region: "gwangju_city", district: "남구" },
-    // 울산
-    { region: "ulsan", district: "남구" },
-    { region: "ulsan", district: "중구" },
-    { region: "ulsan", district: "북구" },
-    { region: "ulsan", district: "동구" },
-    { region: "ulsan", district: "울주군" },
-    // 청주
-    { region: "cheongju", district: "흥덕구" },
-    { region: "cheongju", district: "서원구" },
-    { region: "cheongju", district: "상당구" },
-    { region: "cheongju", district: "청원구" },
-  ];
-
-  return regionList.map((item) => ({
-    region: item.region,
-    district: item.district,
-  }));
 }
 
 function getRegionKoreanName(region: string): string {
@@ -173,139 +44,74 @@ function getRegionFullName(region: string): string {
   }
 }
 
-export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
+export default function RegionalDetailPage({ params, searchParams }: PageProps) {
+  // 클라이언트 환경에서 비동기 params/searchParams 처리
+  const [resolvedData, setResolvedData] = useState<{ region: string; district: string; dongName: string } | null>(null);
   
-  const { region, district } = resolvedParams;
-  const dongName = resolvedSearchParams.dong ? decodeURIComponent(resolvedSearchParams.dong) : "";
-  const districtName = decodeURIComponent(district);
-  const regionName = getRegionKoreanName(region);
+  // 새로고침 시 랜덤 섞인 샵 리스트를 담을 상태
+  const [shuffledShops, setShuffledShops] = useState<any[]>([]);
 
-  const locationKeyword = `${regionName} ${districtName} ${dongName}`.trim();
-  const simpleLocation = dongName ? `${districtName} ${dongName}` : districtName;
+  useEffect(() => {
+    async function unwrapParams() {
+      const p = await params;
+      const sp = await searchParams;
+      const reg = p.region;
+      const dist = decodeURIComponent(p.district);
+      const dong = sp.dong ? decodeURIComponent(sp.dong) : "";
+      
+      setResolvedData({ region: reg, district: dist, dongName: dong });
 
-  const charSum = (locationKeyword + dongName + districtName).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const variantIndex = charSum % 120;
+      // 지역별 기본 샵 데이터 정의
+      const isDaejeonOrCheongju = reg === "daejeon" || reg === "cheongju";
+      const isPreparingRegion = reg === "busan" || reg === "daegu" || reg === "gwangju_city" || reg === "ulsan";
+      
+      const regionFullName = getRegionFullName(reg);
+      const fullTitle = dong ? `${regionFullName} ${dist} (${dong})` : `${regionFullName} ${dist}`;
 
-// 🌟 제목 변수 (출장마사지 키워드 포함)
-  const titleVariants = [
-    `${locationKeyword} 출장마사지 추천 순위 TOP 제휴샵 - 마사지모아`,
-    `${simpleLocation} 주변 24시 출장마사지 방문 홈케어 | 선입금 없는 안심 후불 예약`,
-    `[마사지모아] ${locationKeyword} 출장마사지 타이·아로마 테라피 신속 방문`,
-    `${locationKeyword} 출장마사지 감성 스웨디시 힐링 케어 추천 업체 모아보기`,
-    `오늘 바로 이용 가능한 ${simpleLocation} 출장마사지 | 100% 후불제 서비스`,
-    `${regionName} ${simpleLocation} 출장마사지 바디케어 가이드 · 베테랑 힐러 맞춤 관리`,
-    `${locationKeyword} 피로회복 특화 출장마사지 방문 테라피 매장 가격 및 코스`,
-    `[24시 실시간] ${locationKeyword} 출장마사지 빠른 매칭 서비스 - 마사지모아`,
-    `${simpleLocation} 프라이빗 출장마사지 1:1 홈테라피 전문점 정보 및 가이드`,
-    `마사지모아 공식 | ${locationKeyword} 출장마사지 믿을 수 있는 후불 안심 테라피`,
-    `${locationKeyword} 출장마사지 직장인 야근 피로 싹 푸는 24시간 방문 케어`,
-    `${simpleLocation} 출장마사지 요금표 정리 | 타이 60분 6만원부터`,
-    `[신속방문 25분] ${locationKeyword} 출장마사지 안심 예약 바디케어 제휴샵`,
-    `${locationKeyword} 출장마사지 전신 아로마 릴렉싱 코스 · 청결 위생 철저 매장`,
-    `${simpleLocation} 출장마사지 어디가 좋을까? 실제 이용 평점 확인하기`,
-    `마사지모아 엄선 | ${locationKeyword} 출장마사지 럭셔리 VIP 스웨디시 프로그램`,
-    `${locationKeyword} 출장마사지 24시 야간 방문 테라피 상담 및 코스 안내`,
-    `${simpleLocation} 주민이 찾는 후불제 홈케어 출장마사지 베스트 샵`,
-    `[100% 후불 보장] ${locationKeyword} 출장마사지 예약 전 체크포인트`,
-    `${locationKeyword} 출장마사지 나만의 힐링 쉼터 | 최고급 오일 프라이빗 바디케어`,
-  ];
-
-  // 🌟 설명 변수 (출장마사지 키워드가 명확히 포함되도록 정의)
-  const descriptionVariants = [
-    `${locationKeyword} 지역에서 자택, 오피스텔, 호텔 어디든 부를 수 있는 60,000원 특가 출장마사지 및 홈타이 제휴 업소 안내.`,
-    `${simpleLocation} 전지역 25분 내 신속 방문하는 출장마사지 전문 힐러진의 100% 후불제 안심 홈케어 서비스.`,
-    `지친 일상을 깨우는 정성 가득한 테라피! ${locationKeyword} 출장마사지 전문 제휴점에서 선입금 없이 안전하게 이용하세요.`,
-    `품격 있는 힐링을 선사하는 프라이빗 케어. ${simpleLocation} 출장마사지 최고급 오일 테라피와 맞춤 지압을 만나보세요.`,
-    `선입금 없는 100% 후불제 안심 이용! ${locationKeyword} 출장마사지 평균 25분 내 신속하게 방문해 드립니다.`,
-  ];
-
-  // 인덱스 범위 초과 방지 안전장치
-  const safeTitleIndex = variantIndex % titleVariants.length;
-  const safeDescIndex = variantIndex % descriptionVariants.length;
-
-  const finalTitle = titleVariants[safeTitleIndex];
-  const finalDescription = descriptionVariants[safeDescIndex];
-
-  return {
-    title: finalTitle,
-    description: finalDescription,
-    keywords: [
-      `${locationKeyword} 출장마사지`,
-      `${locationKeyword}출장마사지`,
-      `${simpleLocation} 출장마사지`,
-      `${locationKeyword} 홈케어`,
-      `${locationKeyword} 방문 마사지`,
-      `${locationKeyword} 스웨디시`,
-      "24시 출장마사지",
-      "후불제 출장마사지",
-      "마사지모아"
-    ],
-
-export default async function RegionalDetailPage({ params, searchParams }: PageProps) {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
-
-  const { region, district } = resolvedParams;
-  const dongName = resolvedSearchParams.dong ? decodeURIComponent(resolvedSearchParams.dong) : "";
-  const districtName = decodeURIComponent(district);
-  const regionName = getRegionFullName(region);
-  
-  const fullTitle = dongName 
-    ? `${regionName} ${districtName} (${dongName})` 
-    : `${regionName} ${districtName}`;
-
-  // 💡 지역 분기 로직
-  const isDaejeonOrCheongju = region === "daejeon" || region === "cheongju";
-  const isPreparingRegion = region === "busan" || region === "daegu" || region === "gwangju_city" || region === "ulsan";
-
-  let localShops: { id: number; name: string; desc: string; phone: string; price: string; image: string }[] = [];
-
-  if (isDaejeonOrCheongju) {
-    localShops = [
-      {
-        id: 1,
-        name: `👑 ${fullTitle} S슬림`,
-        desc: `${fullTitle} 전지역 25분 신속 도착! 100% 후불제로 안심하고 이용하는 최고급 프라이빗 힐링 테라피 & 바디케어`,
-        phone: "0507-1280-3352",
-        price: "60,000원부터~",
-        image: "/shop1.jpg"
+      let baseShops = [];
+      if (isDaejeonOrCheongju) {
+        baseShops = [
+          {
+            id: 1,
+            name: `👑 ${fullTitle} S슬림`,
+            desc: `${fullTitle} 전지역 25분 신속 도착! 100% 후불제로 안심하고 이용하는 최고급 프라이빗 힐링 테라피 & 바디케어`,
+            phone: "0507-1280-3352",
+            price: "60,000원부터~",
+            image: "/shop1.jpg"
+          }
+        ];
+      } else if (!isPreparingRegion) {
+        baseShops = [
+          { id: 1, name: `🔥 ${fullTitle} 한국미녀 홈케어`, desc: "지친 일상에 맞춤형 피로회복 케어! 베테랑 테라피스트의 정성 어린 프라이빗 릴렉싱", phone: "0507-1280-3299", price: "90,000원부터~", image: "/shop1.jpg" },
+          { id: 2, name: `✨ ${fullTitle} 너무이쁜 홈테라피`, desc: "최고급 천연 아로마 오일을 활용한 품격 있는 전신 바디 이완 케어 서비스", phone: "0507-1280-3190", price: "60,000원부터~", image: "/shop2.jpg" },
+          { id: 3, name: `💎 ${fullTitle} 예쁜걸 프리미엄`, desc: "재방문율 높은 안심 케어! 철저한 위생 관리와 럭셔리 스웨디시 프로그램 제공", phone: "0507-1280-3185", price: "60,000원부터~", image: "/shop3.jpg" },
+          { id: 4, name: `🌟 ${fullTitle} 20대 프리미엄 힐링`, desc: "전문 힐러진의 맞춤형 VIP 체형 맞춤 피로회복 특화 프로그램 운영 중", phone: "0507-1280-3222", price: "60,000원부터~", image: "/shop4.jpg" },
+          { id: 5, name: `👑 ${fullTitle} 한국골든테라피`, desc: "선입금 전혀 없는 100% 안심 후불제! 신속 방문 프라이빗 서비스", phone: "0507-1280-3361", price: "60,000원부터~", image: "/shop5.jpg" }
+        ];
       }
-    ];
-  } else if (!isPreparingRegion) {
-    localShops = [
-      { id: 1, name: `🔥 ${fullTitle} 한국미녀 홈케어`, desc: "지친 일상에 맞춤형 피로회복 케어! 베테랑 테라피스트의 정성 어린 프라이빗 릴렉싱", phone: "0507-1280-3299", price: "90,000원부터~", image: "/shop1.jpg" },
-      { id: 2, name: `✨ ${fullTitle} 너무이쁜 홈테라피`, desc: "최고급 천연 아로마 오일을 활용한 품격 있는 전신 바디 이완 케어 서비스", phone: "0507-1280-3190", price: "60,000원부터~", image: "/shop2.jpg" },
-      { id: 3, name: `💎 ${fullTitle} 예쁜걸 프리미엄`, desc: "재방문율 높은 안심 케어! 철저한 위생 관리와 럭셔리 스웨디시 프로그램 제공", phone: "0507-1280-3185", price: "60,000원부터~", image: "/shop3.jpg" },
-      { id: 4, name: `🌟 ${fullTitle} 20대 프리미엄 힐링`, desc: "전문 힐러진의 맞춤형 VIP 체형 맞춤 피로회복 특화 프로그램 운영 중", phone: "0507-1280-3222", price: "60,000원부터~", image: "/shop4.jpg" },
-      { id: 5, name: `👑 ${fullTitle} 그녀의온도 홈테라피`, desc: "선입금 전혀 없는 100% 안심 후불제! 신속 방문 프라이빗 서비스", phone: "0507-1280-3292", price: "60,000원부터~", image: "/shop5.jpg" }
-    ];
+
+      // 페이지 진입/새로고침 시 무작위 랜덤 섞기
+      const randomized = [...baseShops].sort(() => Math.random() - 0.5);
+      setShuffledShops(randomized);
+    }
+
+    unwrapParams();
+  }, [params, searchParams]);
+
+  if (!resolvedData) {
+    return <div className="bg-[#050505] text-white min-h-screen flex items-center justify-center">로딩 중...</div>;
   }
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": `${fullTitle} 출장마사지 & 홈케어 안내 - 마사지모아`,
-    "description": `${fullTitle} 지역 출장마사지, 방문 바디케어 및 힐링 테라피 제휴업체 정보 제공`,
-    "url": `https://massage-moa.vercel.app/${region}/${encodeURIComponent(districtName)}`,
-    "telephone": "0507-1280-3344",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": districtName,
-      "addressRegion": regionName,
-      "addressCountry": "KR"
-    }
-  };
+  const { region, district: districtName, dongName } = resolvedData;
+  const regionName = getRegionFullName(region);
+  const fullTitle = dongName ? `${regionName} ${districtName} (${dongName})` : `${regionName} ${districtName}`;
+
+  const isDaejeonOrCheongju = region === "daejeon" || region === "cheongju";
+  const isPreparingRegion = region === "busan" || region === "daegu" || region === "gwangju_city" || region === "ulsan";
 
   return (
     <div className="bg-[#050505] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
       
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
         
         {/* 상단 지역 대표 배너 */}
@@ -331,7 +137,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
         {/* 클라이언트 사이드 키워드 인젝션 영역 */}
         <ClientTextMixer locationText={fullTitle} />
 
-        {/* 제휴업체 섹션 분기처리 */}
+        {/* 제휴업체 섹션 (새로고침 시 랜덤 섞인 리스트 출력) */}
         <section className="space-y-6">
           <div className="text-center">
             <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">
@@ -364,7 +170,7 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
             </div>
           ) : (
             <div className={isDaejeonOrCheongju ? "max-w-xl mx-auto" : "grid grid-cols-1 md:grid-cols-2 gap-4"}>
-              {localShops.map((lShop) => (
+              {shuffledShops.map((lShop) => (
                 <div key={lShop.id} className="bg-[#121214] border border-amber-500/20 hover:border-amber-500/60 rounded-2xl p-4 flex gap-4 items-center shadow-lg transition-all group relative">
                   <Link href={`/shop/${lShop.id}`} className="absolute inset-0 z-10" aria-label={`${lShop.name} 상세페이지 보기`} />
                   <img 
@@ -412,65 +218,6 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
                 <li><strong className="text-gray-200">프라이빗 홈케어:</strong> 익숙하고 편안한 자신의 개인 공간에서 이동 시간 없이 피로를 완화할 수 있는 장점이 있습니다.</li>
               </ul>
             </div>
-            <p className="text-gray-400 text-[11px]">
-              * 본 가이드는 {fullTitle} 주민 여러분의 건강한 피로 회복과 올바른 힐링 케어 정보 제공을 목적으로 작성되었습니다.
-            </p>
-          </div>
-        </section>
-
-        {/* 서비스 이용 순서 4단계 */}
-        <section className="bg-[#0f0f12] p-6 md:p-8 rounded-3xl border border-amber-500/30 space-y-6">
-          <div className="text-center">
-            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">SERVICE PROCESS</span>
-            <h3 className="text-xl font-black text-white mt-1">{fullTitle} 서비스 이용 순서</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
-              <span className="text-xs text-amber-400 font-bold">STEP 1</span>
-              <h4 className="font-bold text-white mt-1">위치 전달</h4>
-              <p className="text-xs text-gray-400 mt-1">{fullTitle} 희망 장소를 알려줍니다.</p>
-            </div>
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
-              <span className="text-xs text-amber-400 font-bold">STEP 2</span>
-              <h4 className="font-bold text-white mt-1">시간 조율</h4>
-              <p className="text-xs text-gray-400 mt-1">원하시는 방문 시간을 확인합니다.</p>
-            </div>
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
-              <span className="text-xs text-amber-400 font-bold">STEP 3</span>
-              <h4 className="font-bold text-white mt-1">코스 선택</h4>
-              <p className="text-xs text-gray-400 mt-1">컨디션에 맞는 프로그램을 선택합니다.</p>
-            </div>
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
-              <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h4 className="font-bold text-white mt-1">케어 진행</h4>
-              <p className="text-xs text-gray-400 mt-1">도착 후 100% 후불제로 이용합니다.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Q&A */}
-        <section className="space-y-4">
-          <div className="text-center">
-            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">FAQ & GUIDE</span>
-            <h3 className="text-xl font-black text-white mt-1">{fullTitle} 자주 묻는 질문</h3>
-          </div>
-          <div className="space-y-3">
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
-              <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> {fullTitle} 출장마사지 방문 소요 시간은 얼마나 되나요?
-              </div>
-              <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-red-400 font-bold">A.</span> 주요 거점 기준 평균 20분~30분 내외로 원활한 방문이 가능합니다.
-              </p>
-            </div>
-            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
-              <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> 예약금이나 선입금 요청이 있나요?
-              </div>
-              <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-red-400 font-bold">A.</span> 마사지모아 제휴업체는 100% 후불제로 운영되므로 출발 전 선입금을 절대 요구하지 않습니다.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -487,7 +234,6 @@ export default async function RegionalDetailPage({ params, searchParams }: PageP
               <span>🤝</span> 제휴문의 (0507-1280-3344)
             </a>
           </div>
-
           <p className="text-gray-400 font-bold">마사지모아는 건전한 방문 힐링 바디케어 정보 안내 플랫폼입니다.</p>
           <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 마사지모아 ALL RIGHTS RESERVED.</p>
         </div>
