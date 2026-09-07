@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import ClientTextMixer from "./ClientTextMixer";
 
@@ -26,47 +25,37 @@ function getRegionFullName(region: string): string {
 }
 
 export default function RegionalClientUI({ region, district, dongName }: ClientUIProps) {
-  const [shuffledShops, setShuffledShops] = useState<any[]>([]);
-
-  useEffect(() => {
-    const regionFullName = getRegionFullName(region);
-    const fullTitle = dongName ? `${regionFullName} ${district} (${dongName})` : `${regionFullName} ${district}`;
-
-    const isDaejeonOrCheongju = region === "daejeon" || region === "cheongju";
-    const isPreparingRegion = region === "busan" || region === "daegu" || region === "gwangju_city" || region === "ulsan";
-
-    let baseShops: { id: number; name: string; desc: string; phone: string; price: string; image: string }[] = [];
-
-    if (isDaejeonOrCheongju) {
-      baseShops = [
-        {
-          id: 1,
-          name: `👑 ${fullTitle} S슬림`,
-          desc: `${fullTitle} 출장마사지 전지역 25분 신속 도착! 100% 후불제로 안심하고 이용하는 최고급 프라이빗 힐링 테라피`,
-          phone: "0507-1280-3352",
-          price: "60,000원부터~",
-          image: "/shop1.jpg"
-        }
-      ];
-    } else if (!isPreparingRegion) {
-      baseShops = [
-        { id: 1, name: `🔥 ${fullTitle} 한국미인홈케어`, desc: `${fullTitle} 출장마사지 전문! 베테랑 테라피스트의 정성 어린 프라이빗 릴렉싱`, phone: "0507-1280-3201", price: "90,000원부터~", image: "/shop1.jpg" },
-        { id: 2, name: `✨ ${fullTitle} 오늘밤테라피`, desc: `${fullTitle} 24시 출장마사지, 최고급 천연 오일 전신 바디 이완 케어`, phone: "0507-1280-3199", price: "60,000원부터~", image: "/shop2.jpg" },
-        { id: 3, name: `💎 ${fullTitle} 주주테라피`, desc: `재방문율 높은 안심 출장마사지! 철저한 위생 관리와 럭셔리 스웨디시 프로그램`, phone: "0507-1280-3197", price: "60,000원부터~", image: "/shop3.jpg" },
-        { id: 4, name: `🌟 ${fullTitle} 퀸즈홈테라피`, desc: `전문 힐러진의 ${fullTitle} 출장마사지 맞춤형 VIP 피로회복 특화 프로그램`, phone: "0507-1280-3222", price: "60,000원부터~", image: "/shop4.jpg" },
-        { id: 5, name: `👑 ${fullTitle} 한국골든테라피`, desc: `선입금 없는 100% 안심 후불제 ${fullTitle} 출장마사지 신속 방문 프라이빗 서비스`, phone: "0507-1280-3360", price: "60,000원부터~", image: "/shop5.jpg" }
-      ];
-    }
-
-    const randomized = [...baseShops].sort(() => Math.random() - 0.5);
-    setShuffledShops(randomized);
-  }, [region, district, dongName]);
-
   const regionName = getRegionFullName(region);
   const fullTitle = dongName ? `${regionName} ${district} (${dongName})` : `${regionName} ${district}`;
 
   const isDaejeonOrCheongju = region === "daejeon" || region === "cheongju";
   const isPreparingRegion = region === "busan" || region === "daegu" || region === "gwangju_city" || region === "ulsan";
+
+  let baseShops: { id: number; name: string; desc: string; phone: string; price: string; image: string }[] = [];
+
+  if (isDaejeonOrCheongju) {
+    baseShops = [
+      {
+        id: 1,
+        name: `👑 ${fullTitle} S슬림`,
+        desc: `${fullTitle} 출장마사지 전지역 25분 신속 도착! 100% 후불제로 안심하고 이용하는 최고급 프라이빗 힐링 테라피`,
+        phone: "0507-1280-3352",
+        price: "60,000원부터~",
+        image: "/shop1.jpg"
+      }
+    ];
+  } else if (!isPreparingRegion) {
+    baseShops = [
+      { id: 1, name: `🔥 ${fullTitle} 한국미인홈케어`, desc: `${fullTitle} 출장마사지 전문! 베테랑 테라피스트의 정성 어린 프라이빗 릴렉싱`, phone: "0507-1280-3201", price: "90,000원부터~", image: "/shop1.jpg" },
+      { id: 2, name: `✨ ${fullTitle} 오늘밤테라피`, desc: `${fullTitle} 24시 출장마사지, 최고급 천연 오일 전신 바디 이완 케어`, phone: "0507-1280-3199", price: "60,000원부터~", image: "/shop2.jpg" },
+      { id: 3, name: `💎 ${fullTitle} 주주테라피`, desc: `재방문율 높은 안심 출장마사지! 철저한 위생 관리와 럭셔리 스웨디시 프로그램`, phone: "0507-1280-3197", price: "60,000원부터~", image: "/shop3.jpg" },
+      { id: 4, name: `🌟 ${fullTitle} 퀸즈홈테라피`, desc: `전문 힐러진의 ${fullTitle} 출장마사지 맞춤형 VIP 피로회복 특화 프로그램`, phone: "0507-1280-3222", price: "60,000원부터~", image: "/shop4.jpg" },
+      { id: 5, name: `👑 ${fullTitle} 한국골든테라피`, desc: `선입금 없는 100% 안심 후불제 ${fullTitle} 출장마사지 신속 방문 프라이빗 서비스`, phone: "0507-1280-3360", price: "60,000원부터~", image: "/shop5.jpg" }
+    ];
+  }
+
+  // 렌더링 시점에 바로 셔플하여 useEffect 내 setState 에러 원천 차단
+  const shuffledShops = [...baseShops].sort(() => Math.random() - 0.5);
 
   return (
     <div className="bg-[#050505] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
@@ -113,7 +102,7 @@ export default function RegionalClientUI({ region, district, dongName }: ClientU
               <div className="space-y-2">
                 <h3 className="text-lg font-extrabold text-white">현재 {fullTitle} 출장마사지 제휴업체 모집 중</h3>
                 <p className="text-xs text-gray-400 leading-relaxed max-w-md mx-auto">
-                  건마사랑은 철저한 안심 후불제 검증을 거친 업체만 입점시키고 있습니다. 현재 해당 지역은 신규 제휴점을 심사 및 준비 중입니다.
+                  마사지모아는 철저한 안심 후불제 검증을 거친 업체만 입점시키고 있습니다. 현재 해당 지역은 신규 제휴점을 심사 및 준비 중입니다.
                 </p>
               </div>
               <div className="bg-black/40 border border-white/5 rounded-2xl p-4 max-w-sm mx-auto">
@@ -187,8 +176,8 @@ export default function RegionalClientUI({ region, district, dongName }: ClientU
               <span>🤝</span> 제휴문의 (0507-1280-3344)
             </a>
           </div>
-          <p className="text-gray-400 font-bold">건마사랑은 건전한 출장마사지 및 방문 힐링 바디케어 정보 안내 플랫폼입니다.</p>
-          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 건마사랑 ALL RIGHTS RESERVED.</p>
+          <p className="text-gray-400 font-bold">마사지모아는 건전한 출장마사지 및 방문 힐링 바디케어 정보 안내 플랫폼입니다.</p>
+          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; 마사지모아 ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>
