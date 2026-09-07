@@ -64,7 +64,9 @@ export default function RegionalDetailPage({ params, searchParams }: PageProps) 
       const regionFullName = getRegionFullName(reg);
       const fullTitle = dong ? `${regionFullName} ${dist} (${dong})` : `${regionFullName} ${dist}`;
 
-      let baseShops = [];
+      // 💡 TypeScript 에러 방지를 위해 명확한 타입 선언 추가
+      let baseShops: { id: number; name: string; desc: string; phone: string; price: string; image: string }[] = [];
+
       if (isDaejeonOrCheongju) {
         baseShops = [
           {
