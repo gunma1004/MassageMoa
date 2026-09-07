@@ -199,13 +199,13 @@ const initialLocalShops = [
     image: "/shop4.jpg"
   },
   {
-    id: 5,
-    name: "👑 한국골든테라피", // 👈 이 부분을 원하시는 이름으로 바꾸시면 됩니다!
-    desc: "선입금 없는 100% 후불제! 수도권 및 전국 주요지역 25분 내 도착",
-    phone: "0507-1280-3360",
-    price: "60,000원부터~",
-    image: "/shop5.jpg"
-  }
+  id: 5,
+  name: "👑 한국골든테라피", 
+  desc: "선입금 없는 100% 후불제! 수도권 및 전국 주요지역 25분 내 도착",
+  phone: "0507-1280-3360",
+  price: "60,000원부터~",
+  image: "/shop5.jpg"
+}
 ];
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
