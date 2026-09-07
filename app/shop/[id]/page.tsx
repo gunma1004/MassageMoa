@@ -93,7 +93,7 @@ const shopData: Record<
   },
   "5": {
     name: "👑 한국골든테라피",
-    phone: "0507-1280-3361",
+    phone: "0507-1280-3360",
     location: "전국 주요 지역 실시간 방문",
     badge: "인기도 TOP 5",
     image: "/shop5.jpg",
