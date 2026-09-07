@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// 전국 주요 전지역 데이터 (서울, 경기, 인천, 부산, 대구, 대전, 광주, 울산, 청주)
+// 전국 주요 전지역 데이터
 const regionData: Record<string, { name: string; districts: Record<string, { name: string; dongs: string[] }> }> = {
   seoul: {
     name: "서울특별시",
@@ -164,6 +164,7 @@ const regionData: Record<string, { name: string; districts: Record<string, { nam
   }
 };
 
+// 💡 5번 업체명을 포함한 메인 추천 샵 원본 데이터 (여기서 5번 업체명을 원하시는 이름으로 자유롭게 수정하세요!)
 const initialLocalShops = [
   {
     id: 1,
@@ -199,7 +200,7 @@ const initialLocalShops = [
   },
   {
     id: 5,
-    name: "👑 한국골든테라피",
+    name: "👑 한국골든테라피", // 👈 이 부분을 원하시는 이름으로 바꾸시면 됩니다!
     desc: "선입금 없는 100% 후불제! 수도권 및 전국 주요지역 25분 내 도착",
     phone: "0507-1280-3360",
     price: "60,000원부터~",
@@ -235,7 +236,7 @@ export default function MainClientUI() {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
 
-  // 새로고침 시 추천 샵 순서가 매번 랜덤으로 섞이도록 상태 관리
+  // 새로고침 시 5개 업체 순서가 매번 무작위로 섞이도록 설정
   const [shuffledShops, setShuffledShops] = useState(initialLocalShops);
 
   useEffect(() => {
