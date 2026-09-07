@@ -119,7 +119,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${shop.name} | 마사지모아 제휴샵 안내`,
       description: shop.desc,
-      url: `https://massagemoa.pages.dev/shop/${id}`,
+      url: `https://massage-moa.vercel.app/shop/${id}`,
       siteName: "마사지모아",
       locale: "ko_KR",
       type: "website",

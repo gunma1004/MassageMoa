@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "마사지모아 | 전국 24시 방문 홈케어 & 마사지 추천",
     description:
       "선입금 없는 100% 후불 안심 케어! 전국 주요 도시 빠른 방문 바디케어 정보를 한눈에 모아보세요.",
-    url: "https://massagemoa.pages.dev", // Cloudflare 배포 기본 도메인과 통일
+    url: "https://massage-moa.vercel.app", // Cloudflare 배포 기본 도메인과 통일
     siteName: "마사지모아",
     locale: "ko_KR",
     type: "website",
