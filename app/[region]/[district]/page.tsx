@@ -188,6 +188,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const charSum = (locationKeyword + dongName + districtName).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const variantIndex = charSum % 120;
 
+// 🌟 제목 변수 (출장마사지 키워드 포함)
   const titleVariants = [
     `${locationKeyword} 출장마사지 추천 순위 TOP 제휴샵 - 마사지모아`,
     `${simpleLocation} 주변 24시 출장마사지 방문 홈케어 | 선입금 없는 안심 후불 예약`,
@@ -209,110 +210,24 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     `${simpleLocation} 주민이 찾는 후불제 홈케어 출장마사지 베스트 샵`,
     `[100% 후불 보장] ${locationKeyword} 출장마사지 예약 전 체크포인트`,
     `${locationKeyword} 출장마사지 나만의 힐링 쉼터 | 최고급 오일 프라이빗 바디케어`,
-    `${regionName} ${simpleLocation} 출장마사지 빠른 테라피 연결 및 코스 정보`,
-    `${locationKeyword} 출장마사지 뭉친 근육 완화 스트레칭 & 건식 케어 추천`,
-    `[마사지모아 핫플레이스] ${locationKeyword} 출장마사지 제휴 리스트`,
-    `${simpleLocation} 출장마사지 베테랑 관리사의 품격 있는 전신 케어 안내`,
-    `${locationKeyword} 출장마사지 실시간 예약 가능 업체 및 프로모션`,
-    `도착 후 결제하는 ${simpleLocation} 24시 출장마사지 안심 가이드`,
-    `${locationKeyword} 출장마사지 스페셜 아로마 & 림프 순환 케어 전문 매장`,
-    `${locationKeyword} 출장마사지 예약 방법 및 권역별 평균 도착 시간`,
-    `${simpleLocation} 출장마사지 프리미엄 방문 홈타이 | 심신 안정 피로 회복`,
-    `[마사지모아 제휴] ${locationKeyword} 출장마사지 24시간 1:1 맞춤 바디 테라피`,
-    `${locationKeyword} 출장마사지 뻐근한 목·어깨 집중 케어 추천`,
-    `${simpleLocation} 출장마사지 선입금 사기 걱정 없는 정직한 후불제 힐링`,
-    `${locationKeyword} 출장마사지 솔직 이용 후기와 코스별 요금 비교`,
-    `출장마사지 프라이빗 홈케어의 정석 ${locationKeyword} 25분 칼도착 서비스`,
-    `[24시 출동] ${simpleLocation} 출장마사지 전지역 방문 바디케어 제휴처 모음`,
-    `${locationKeyword} 출장마사지 최고급 에센셜 오일 스웨디시 테라피 가이드`,
-    `${locationKeyword} 출장마사지 빠른 상담 및 내 주변 제휴샵 찾기`,
-    `${simpleLocation} 출장마사지 지친 하루의 끝, 집에서 받는 전신 마사지`,
-    `마사지모아 추천 | ${locationKeyword} 출장마사지 친절 매너 베테랑 힐러진`,
-    `${locationKeyword} 출장마사지 100% 후불 결제 안심 테라피 시스템 안내`,
-    `${simpleLocation} 출장마사지 타이·아로마·스웨디시 코스 총정리`,
-    `[실시간 배차] ${locationKeyword} 출장마사지 20~30분 내 신속 방문`,
-    `${locationKeyword} 출장마사지 쾌적하고 안전한 프라이빗 방문 힐링`,
-    `${simpleLocation} 24시 후불 안심 출장마사지 케어 매장 목록`,
-    `마사지모아 | ${locationKeyword} 출장마사지 고객 만족도 최상위 제휴샵`,
-    `${locationKeyword} 출장마사지 건식 스트레칭 및 딥티슈 프로그램`,
-    `${simpleLocation} 출장마사지 인근 방문 테라피 빠른 전화 예약 및 상담`,
-    `[안심 후불제] ${locationKeyword} 출장마사지 프라이빗 VIP 홈케어 종합 가이드`,
-    `${locationKeyword} 출장마사지 전신 피로가 말끔히 풀리는 전문 테라피 코스`,
-    `${simpleLocation} 출장마사지 정보는? 마사지모아에서 한눈에 비교`,
-    `${locationKeyword} 출장마사지 단골이 많은 검증된 제휴 매장`,
-    `선예약금 요구 절대 거절! ${simpleLocation} 100% 후불제 출장마사지 홈테라피`,
-    `[마사지모아 픽] ${locationKeyword} 출장마사지 최고 인기 힐링 코스 모음집`,
-    `${locationKeyword} 출장마사지 집에서 받는 호텔식 스파 & 스웨디시 케어`,
-    `${simpleLocation} 출장마사지 주변 25분 내 빠른 방문 바디케어 샵`,
-    `${locationKeyword} 출장마사지 피로 해소에 최적화된 맞춤 테라피스트`,
-    `[24시간 연중무휴] ${simpleLocation} 출장마사지 안심 예약 상담`,
-    `${locationKeyword} 출장마사지 코스별 상세 가격과 실제 고객 만족도`,
-    `${simpleLocation} 출장마사지 아늑한 개인 공간 전문 아로마 오일 케어`,
-    `마사지모아 공식 인증 ${locationKeyword} 출장마사지 신뢰도 1위 홈케어`,
-    `${locationKeyword} 출장마사지 힐링 테라피 전문 힐러들의 1:1 집중 피로회복`,
-    `${simpleLocation} 출장마사지 어디가 빠를까? 25분 도착 보장 샵`,
-    `[후불 결제 안심존] ${locationKeyword} 출장마사지 바디케어 제휴업체 정보`,
-    `${locationKeyword} 출장마사지 전신 림프 순환 케어 및 프리미엄 스웨디시`,
-    `${simpleLocation} 출장마사지 타이 건식 요금 비교 및 힐링 추천 매장`,
-    `마사지모아 | ${locationKeyword} 출장마사지 24시 실시간 예약 센터`,
-    `${locationKeyword} 출장마사지 목, 어깨, 허리 뭉침을 시원하게 푸는 홈케어`,
-    `${simpleLocation} 출장마사지 인근 고객 리뷰 평점 높은 TOP 제휴점`,
-    `[100% 안전 보장] ${locationKeyword} 출장마사지 선입금 없는 클린 바디테라피`,
-    `${locationKeyword} 출장마사지 나를 위한 하루 60분의 기적! 피로회복 가이드`,
-    `${regionName} ${simpleLocation} 출장마사지 신속 배차 이용 방법`,
-    `${locationKeyword} 출장마사지 최고급 아로마 오일로 누리는 럭셔리 릴렉싱`,
-    `[마사지모아 가이드] ${locationKeyword} 출장마사지 대표 코스 정리`,
-    `${locationKeyword} 출장마사지 부담 없는 가격 전문 방문 테라피`,
-    `${simpleLocation} 출장마사지 야간에도 안심하고 부르는 24시 서비스`,
-    `청결과 위생을 약속하는 ${locationKeyword} 출장마사지 프라이빗 힐링`,
-    `${locationKeyword} 출장마사지 첫 이용자를 위한 알짜 이용 팁`,
-    `${simpleLocation} 출장마사지 테라피스트 프로필 및 맞춤 힐링 프로그램`,
-    `[25분 도착 보장] ${locationKeyword} 출장마사지 실시간 예약 가이드`,
-    `마사지모아 ${locationKeyword} 출장마사지 정직한 후불제 바디케어`,
-    `${locationKeyword} 출장마사지 최신 요금표 및 제휴 이벤트 소식`,
-    `${simpleLocation} 출장마사지 도심 속 힐링 오아시스! 방문 홈케어 모음`,
-    `[안심 예약 100%] ${locationKeyword} 출장마사지 공식 가이드북`,
-    `${locationKeyword} 출장마사지 굳은 근육 부드럽게 이완 건식 타이 케어`,
-    `${simpleLocation} 출장마사지 24시 림프 테라피 & 감성 스웨디시 추천`,
-    `마사지모아 추천 | ${locationKeyword} 출장마사지 재방문율 높은 샵`,
-    `${locationKeyword} 출장마사지 이용 후기 및 별점 높은 매장 리스트`,
-    `${simpleLocation} 출장마사지 편안한 내 공간 고품격 바디 테라피`,
-    `[선입금 0원] ${locationKeyword} 믿고 부르는 안심 출장마사지 센터`,
-    `${locationKeyword} 출장마사지 신속 방문 가능한 24시간 테라피스트 매칭`,
-    `${simpleLocation} 출장마사지 가격 대비 만족도 최상위 제휴처`,
-    `[마사지모아 핫이슈] ${locationKeyword} 출장마사지 프리미엄 방문 홈케어`,
-    `${locationKeyword} 출장마사지 지친 심신 달래주는 스페셜 아로마 오일`,
-    `${simpleLocation} 출장마사지 빠른 상담 및 1:1 맞춤 배차 안내`,
-    `피로에 지친 당신을 위한 ${locationKeyword} 24시 출장마사지 방문 힐링`,
-    `${locationKeyword} 출장마사지 제휴 매장별 코스 구성 완벽 비교`,
-    `${simpleLocation} 출장마사지 100% 후불제로 누리는 안전하고 쾌적한 힐링`,
-    `[25분 칼도착] ${locationKeyword} 출장마사지 빠르고 정직한 안내`,
-    `마사지모아 파트너스 | ${locationKeyword} 출장마사지 검증된 홈테라피`,
-    `${locationKeyword} 출장마사지 스트레스 완화 프리미엄 바디 릴렉싱`,
-    `${locationKeyword} 출장마사지 고객 만족도 1위 제휴업체 코스 가이드`,
-    `${simpleLocation} 출장마사지 24시간 실시간 신속 예약 지원 후불제`,
-    `마사지모아 검증 ${locationKeyword} 출장마사지 안심 케어 매장 모음`,
-    `${locationKeyword} 출장마사지 뭉친 승모근과 하체 피로 날리는 홈케어`,
-    `${simpleLocation} 출장마사지 1:1 맞춤 프라이빗 방문 홈케어 25분 출동`,
-    `선입금 사기 없는 ${locationKeyword} 출장마사지 100% 안전 거래`,
-    `부드러운 오일 압 ${locationKeyword} 출장마사지 스웨디시 케어`,
-    `${simpleLocation} 직장인을 위한 24시간 야간 출장마사지 테라피`,
-    `마사지모아 스페셜 | ${locationKeyword} 출장마사지 베테랑 힐러 프로그램`,
-    `가격 거품 뺀 ${locationKeyword} 출장마사지 상세 가격 및 후기`,
-    `${simpleLocation} 출장마사지 어디든 신속하게 달려가는 안심 방문`,
-    `최고급 천연 오일 ${locationKeyword} 출장마사지 전신 바디케어`,
-    `24시간 상담 지원! ${simpleLocation} 출장마사지 빠른 전화 예약`,
-    `${locationKeyword} 출장마사지 재방문율 높은 프리미엄 매장 목록`,
-    `호텔 및 자택 ${locationKeyword} 출장마사지 프라이빗 VIP 힐링 스파`,
-    `마사지모아 ${locationKeyword} 출장마사지 25분 도착 보장 서비스`,
-    `${locationKeyword} 출장마사지 타이 건식부터 아로마 스웨디시까지`,
-    `${simpleLocation} 출장마사지 철저한 위생 소독 1:1 방문 홈케어`,
-    `출발전 예약금 없는 ${locationKeyword} 출장마사지 정직한 후불제`,
-    `${locationKeyword} 출장마사지 상쾌한 활력을 불어넣는 전문 바디 힐링`
   ];
 
-  const finalTitle = titleVariants[variantIndex];
-  const finalDescription = descriptionVariants[variantIndex];
+  // 🌟 설명 변수 (출장마사지 키워드가 명확히 포함되도록 정의)
+  const descriptionVariants = [
+    `${locationKeyword} 지역에서 자택, 오피스텔, 호텔 어디든 부를 수 있는 60,000원 특가 출장마사지 및 홈타이 제휴 업소 안내.`,
+    `${simpleLocation} 전지역 25분 내 신속 방문하는 출장마사지 전문 힐러진의 100% 후불제 안심 홈케어 서비스.`,
+    `지친 일상을 깨우는 정성 가득한 테라피! ${locationKeyword} 출장마사지 전문 제휴점에서 선입금 없이 안전하게 이용하세요.`,
+    `품격 있는 힐링을 선사하는 프라이빗 케어. ${simpleLocation} 출장마사지 최고급 오일 테라피와 맞춤 지압을 만나보세요.`,
+    `선입금 없는 100% 후불제 안심 이용! ${locationKeyword} 출장마사지 평균 25분 내 신속하게 방문해 드립니다.`,
+  ];
+
+  // 인덱스 범위 초과 방지 안전장치
+  const safeTitleIndex = variantIndex % titleVariants.length;
+  const safeDescIndex = variantIndex % descriptionVariants.length;
+
+  const finalTitle = titleVariants[safeTitleIndex];
+  const finalDescription = descriptionVariants[safeDescIndex];
+
   return {
     title: finalTitle,
     description: finalDescription,
@@ -327,16 +242,6 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       "후불제 출장마사지",
       "마사지모아"
     ],
-    openGraph: {
-      title: finalTitle,
-      description: finalDescription,
-      url: `https://massage-moa.vercel.app/${region}/${encodeURIComponent(districtName)}${dongName ? `?dong=${encodeURIComponent(dongName)}` : ""}`,
-      siteName: "마사지모아",
-      locale: "ko_KR",
-      type: "website",
-    },
-  };
-}
 
 export default async function RegionalDetailPage({ params, searchParams }: PageProps) {
   const resolvedParams = await params;
